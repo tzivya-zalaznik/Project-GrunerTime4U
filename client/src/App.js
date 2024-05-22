@@ -15,6 +15,7 @@ import Sales from './Components/Pages/Sales';
 import AdminGallery from './Components/Pages/AdminGallery';
 import Company from './Components/Pages/Company';
 import Footer from './Components/Footer';
+import NotFound from './Components/Pages/NotFound';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="/company" element={<Company />} />
           </Route>
         </Route>
+        <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />
     </div>
