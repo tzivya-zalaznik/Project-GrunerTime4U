@@ -15,16 +15,11 @@ import Sales from './Components/Pages/Sales';
 import AdminGallery from './Components/Pages/AdminGallery';
 import Company from './Components/Pages/Company';
 import Footer from './Components/Footer';
-import AccessibilityOptions from './Components/AccessibilityOptions';
-import useAuth from './Hooks/useAuth';
 
 function App() {
-  const { name, email, role, watches } = useAuth()
   return (
-    <div style={{backgroundColor:'#f8f9fa'}}>
-
+    <div style={{ backgroundColor: '#f8f9fa' }}>
       <NavBar />
-      {/* <AccessibilityOptions/> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -39,7 +34,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

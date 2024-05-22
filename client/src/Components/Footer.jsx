@@ -1,15 +1,8 @@
 import React from 'react';
-import { InputText } from 'primereact/inputtext';
 
-export default function Footer(props) {
+export default function Footer() {
   return (
-    <footer class="text-center text-lg-start bg-body-tertiary text-muted" style={{
-      bottom: '0px',
-      position: 'unset',/*לטפל בזה יום אחד*/
-      width: '100%'
-    }}>
-
-
+    <footer class="text-center text-lg-start bg-body-tertiary text-muted" style={{bottom: '0px',position: 'unset',width: '100%'}}>
       <section class="">
         <div class="container text-center text-md-start mt-5">
           <div class="row mt-3">
@@ -56,9 +49,7 @@ export default function Footer(props) {
                 <a href="register" class="text-reset">הרשמה</a>
               </p>
             </div>
-
           </div>
-          
         </div>
       </section>
 

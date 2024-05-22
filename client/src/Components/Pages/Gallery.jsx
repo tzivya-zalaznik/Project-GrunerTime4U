@@ -13,6 +13,7 @@ import { InputText } from "primereact/inputtext";
 import Swal from 'sweetalert2'
 import { Toast } from 'primereact/toast';
 import { useGetCompaniesQuery } from '../../Slices/companiesApiSlice';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const Gallery = () => {
   const { data: gallery, isSuccess: success, isLoading, isError, error } = useGetGalleryQuery()
@@ -149,7 +150,7 @@ const Gallery = () => {
               <div className="col-12 md:col-6 xl:col-3 p-3">
                 <div className="surface-card shadow-2 border-round p-4 ccc">
                   <div className="flex flex-column align-items-center border-bottom-1 surface-border pb-3">
-                      <img style={{height:'50px',width:'auto',marginBottom:'5px',opacity: `${product.quantity == 0 ? '30%' : '100%'}`}} src={"http://localhost:3150/uploads/" + product.company.imageUrl.split("\\")[2]} /*alt={product.name}*/ indicatorIcon={icon} alt="Image" preview width="250" />
+                    <img style={{ height: '50px', width: 'auto', marginBottom: '5px', opacity: `${product.quantity == 0 ? '30%' : '100%'}` }} src={"http://localhost:3150/uploads/" + product.company.imageUrl.split("\\")[2]} /*alt={product.name}*/ indicatorIcon={icon} alt="Image" preview width="250" />
                     <div class="container">
                       <img className={product.quantity == 0 ? "watchImageOutOfStock " : "watchImage"} src={"http://localhost:3150/uploads/" + product.imageUrl.split("\\")[2]} /*alt={product.name}*/ indicatorIcon={icon} alt="Image" preview width="250" />
                       {product.price != product.disPrice ? <span class="onsale sold-out" style={{ opacity: `${product.quantity == 0 ? '30%' : '100%'}` }}>מבצע!</span> : null}
@@ -249,9 +250,11 @@ const Gallery = () => {
   };
 
   if (isLoading) return <h1>Loading</h1>
+
   if (isError) return <h2>{error.data.message}</h2>
   return (
     <>
+    <div style={{minHeight:'410px'}}>
       <Toast ref={toast} />
       <div className="card flex justify-content-center" style={{ display: 'flex', flexDirection: 'row', backgroundColor: '#f8f9fa' }}>
         <div className="card" style={{ width: '85%', display: 'flex', justifyContent: 'center' }}>
@@ -318,7 +321,7 @@ const Gallery = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div></div>
     </>
   )
 }

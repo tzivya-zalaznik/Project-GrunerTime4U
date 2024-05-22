@@ -44,8 +44,8 @@ const Favorite = () => {
     const deleteProductDialogFooter = (
         <React.Fragment>
         </React.Fragment>
-      );
-    
+    );
+
 
     const gridItem = (product) => {
         return (
@@ -137,14 +137,11 @@ const Favorite = () => {
     if (isError) return <h2>{error}</h2>
     return (
         <>
-        
-            <div className="card">
-                <DataView value={full_favourites} listTemplate={listTemplate} paginator rows={4} alwaysShowPaginator={false} />
+            <div style={{ backgroundColor: '#ffffff', minHeight: '410px' }}>
+                <div >
+                    <DataView value={full_favourites} listTemplate={listTemplate} paginator rows={4} alwaysShowPaginator={false} />
+                </div>
             </div>
-            {/* <div className='footer-cols'>
-        {/* <Divider type="solid" /> }
-            <img src='footer.jpg'></img>
-            </div>        */}
         </>
     )
 }
