@@ -1,50 +1,33 @@
 import React, { useRef } from 'react';
-import { Menubar } from 'primereact/menubar';
 import { NavLink, useNavigate } from 'react-router-dom';
-import Home from './Pages/Home';
 import apiSlice from '../app/apiSlice';
 import { useDispatch } from 'react-redux';
 import { removeToken } from '../Slices/authSlice';
-import { useState } from "react";
-import { Dialog } from 'primereact/dialog';
-import { Button } from 'primereact/button';
 import useAuth from '../Hooks/useAuth';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import { Toast } from 'primereact/toast';
 
 export default function NavBar() {
-    const { name, email, role, watches } = useAuth()
+    const { name, role } = useAuth()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const [visible, setVisible] = useState(false);
-    const [inputValue, setInputValue] = useState('')
-    const [isFavorite, setIsFavorite] = useState(false)
     const toast = useRef(null);
-    const footerContent = (
-        <div>
-            <Button label="ביטול" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />
-            <Button label="כניסה" icon="pi pi-check" onClick={() => { setVisible(false); navigate('/login') }} autoFocus />
-        </div>
-    );
+
     const getOut = () => {
-        // debugger
-        // navigate('/')
-        setIsFavorite(false)
         toast.current.show({ severity: 'success', summary: `${name}`, detail: 'התנתקת בהצלחה', life: 3000 });
         dispatch(removeToken())
         dispatch(apiSlice.util.resetApiState())
     }
+    
     const heart = () => {
         if (!localStorage.token) {
             showSwal();
         }
         else {
-            setIsFavorite(true)
             navigate('/favorite');
         }
     }
-
 
     const showSwal = () => {
         Swal.fire({
@@ -52,29 +35,21 @@ export default function NavBar() {
             title: "<strong>משתמש יקר</strong>",
             icon: "warning",
             iconColor: '#1b5446',
-            html: `
-       יש לבצע כניסה למערכת לפני כניסה למועדפים
-          `,
+            html: `יש לבצע כניסה למערכת לפני כניסה למועדפים`,
             showCloseButton: false,
             showCancelButton: true,
             focusConfirm: true,
             cancelButtonColor: '#1b5446',
             confirmButtonColor: '#1b5446',
             confirmButtonAriaLabel: "Thumbs up, great!",
-            cancelButtonText: `
-            <i class="fa fa-thumbs-down"></i>ביטול
-          `,
-            confirmButtonText: `
-            <i class="sweetButton"></i> כניסה
-          `,
+            cancelButtonText: `<i class="fa fa-thumbs-down"></i>ביטול`,
+            confirmButtonText: `<i class="sweetButton"></i> כניסה`,
             cancelButtonAriaLabel: "Thumbs down"
-
         }).then(res => {
             if (res.isConfirmed) {
                 navigate('/login')
             }
         });
-
     }
 
     return (
@@ -82,14 +57,10 @@ export default function NavBar() {
             <Toast ref={toast} />
             <div className="header">
                 <div style={{ backgroundColor: '#1b5446', height: '10px' }}></div>
-                <div style={{ display: 'flex', backgroundColor: 'white' }}>
-                    <div>
-                        <h4 style={{ marginTop: '25px', marginLeft: '20px' }}>תמיד-בשבילכם</h4>
-                        <h5 style={{ marginLeft: '20px' }}><i className="pi pi-phone"></i> 02-5860374</h5>
-                    </div>
-                    <div className="logo" style={{ width: '80%' }}>
+                <div style={{ display: 'flex', backgroundColor: 'white',alignItems:'center',justifyContent:'space-between' }}>
+                    <div className="logo" style={{ margin: '0 20px' }}>
                         <a href="/" target="_blank" style={{ cursor: 'pointer' }}>
-                            <img alt="logo" src="../../logo.jpg" style={{ height: '70px', width: '300px', marginTop: '15px', marginLeft: '97%', marginRight: '0%' }} className="logo"></img>
+                            <img alt="logo" src="../../logo.jpg" style={{ height: '70px', width: '300px', marginTop: '10px',marginBottom:'10px'}}></img>
                         </a>
                     </div>
                 </div>
@@ -102,29 +73,29 @@ export default function NavBar() {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/register" className="nav-link">
+                                <NavLink to="/register" className="nav-link" activeClassName="active">
                                     <i className="pi pi-user-plus"></i> הוספת מנהל
-                                </Link>
+                                </NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link to="/company" className="nav-link">
+                                <NavLink to="/company" className="nav-link" activeClassName="active">
                                     <i className="pi pi-list"></i> חברות
-                                </Link>
+                                </NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link to="/sales" className="nav-link">
+                                <NavLink to="/sales" className="nav-link" activeClassName="active">
                                     <i className="pi pi-cart-plus"></i> ניהול רכישות
-                                </Link>
+                                </NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link to="adminGallery" className="nav-link">
+                                <NavLink to="adminGallery" className="nav-link" activeClassName="active">
                                     <i className="pi pi-th-large"></i> גלרית שעונים
-                                </Link>
+                                </NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link to="/" className="nav-link">
+                                <NavLink to="/" className="nav-link" activeClassName="active">
                                     <i className="pi pi-home"></i> דף הבית
-                                </Link>
+                                </NavLink>
                             </li>
                         </ul>
                     </nav>
@@ -137,19 +108,19 @@ export default function NavBar() {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/favorite" className="nav-link" onClick={heart}>
+                                <NavLink to="/favorite" className="nav-link" onClick={heart} activeClassName="active">
                                     <i className="pi pi-heart"></i>מועדפים
-                                </Link>
+                                </NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link to="/gallery" className="nav-link">
-                                    <i className="pi pi-shopping-cart"></i> גלרית שעונים
-                                </Link>
+                                <NavLink to="/gallery" className="nav-link" activeClassName="active">
+                                    <i className="pi pi-th-large"></i> גלרית שעונים
+                                </NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link to="/" className="nav-link" activeClassName="active">
+                                <NavLink to="/" className="nav-link" activeClassName="active">
                                     <i className="pi pi-home"></i> דף הבית
-                                </Link>
+                                </NavLink>
                             </li>
                         </ul>
                     </nav>
@@ -184,27 +155,6 @@ export default function NavBar() {
                         </ul>
                     </nav>
                 </div>}
-
             </div>
-            {/* <nav className="navbar navbar-expand-sm bg-light">
-            <ul className="navbar-nav mx-auto">
-                <li className="nav-item">
-                    <NavLink className="nav-link" to="/" activeClassName="active">
-                        Home
-                    </NavLink>
-                </li>
-                <li className="nav-item">
-                    <NavLink className="nav-link" to="/about" activeClassName="active">
-                        About
-                    </NavLink>
-                </li>
-                <li className="nav-item">
-                    <NavLink className="nav-link" to="/contact" activeClassName="active">
-                        Contact
-                    </NavLink>
-                </li>
-            </ul>
-        </nav> */}
         </>
-    )
-}
+    )}
