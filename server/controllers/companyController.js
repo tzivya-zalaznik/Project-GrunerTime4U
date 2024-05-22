@@ -1,5 +1,6 @@
 
 const Company = require("../models/Company")
+const Watch = require("../models/Watch")
 
 const createCompany = async (req,res) => {
     const {name} = req.body
@@ -54,6 +55,11 @@ const updateCompany=async(req,res)=>{
 const deleteCompany=async(req,res)=>{
     const{id}=req.params
     const company=await Company.findById(id).exec()
+    const watches = await Watch.find().lean().populate('company', { name: 1 })
+    const cantDelete=watches?.filter(w=>w.company?.name==company?.name)
+    if(cantDelete.length>0){
+        return res.status(403).send('Can`t delete this company')
+    }
     if(!company){
         return res.status(400).send(`There is no company with id:${id}  :(`)
     }
