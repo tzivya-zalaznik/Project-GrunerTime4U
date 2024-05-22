@@ -469,7 +469,7 @@ export default function AdminGallery() {
             <h2 style={{ direction: 'rtl', justifyContent: 'center' }}><i className="pi pi-spin pi-spinner" style={{ fontSize: '2rem' }}></i>  בטעינה... </h2>
         </div>
     )
-    
+
     return (
         <div>
             <Toast ref={toast} />
@@ -494,9 +494,9 @@ export default function AdminGallery() {
                 </DataTable>
             </div>
 
-            <Dialog visible={productDialog} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="פרטי שעון" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
+             <Dialog visible={productDialog} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="פרטי שעון" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
                 {product.imageUrl && <img src={"http://localhost:3150/uploads/" + product.imageUrl.split("\\")[2]} alt={product.imageUrl} className="product-image block m-auto pb-3" style={{ width: '200px' }} />}
-                <div className="card flex justify-content-center" style={{ width: 'max-content' }}>
+                <div className=" flex justify-content-center" style={{ width: '100%' }}>
                     <Dropdown value={selectedBrand || product.company} onChange={(e) => setSelectedBrand(e.value)} options={brands} optionLabel="name"
                         placeholder="בחר חברה" className="w-full md:w-14rem" />
                 </div>
@@ -515,7 +515,7 @@ export default function AdminGallery() {
                         </label>
                         <div className="formgrid grid">
                             <div className="field col">
-                                <InputNumber value={product.actualCost} style={{ width: "50%" }} name="actualCost"
+                                <InputNumber value={product.actualCost} style={{ width: "100%" }} name="actualCost"
                                     id="actualCost" required onValueChange={(e) => onInputNumberChange(e, 'actualCost')} />&nbsp;
                                 {submitted && !product.actualCost && <small className="p-error">Actual Cost is required.</small>}
                             </div>
@@ -528,7 +528,7 @@ export default function AdminGallery() {
                         </label>
                         <div className="formgrid grid">
                             <div className="field col">
-                                <InputNumber value={product.price} style={{ width: "50%" }} name="price"
+                            &nbsp;<InputNumber value={product.price} style={{ width: "90%" }} name="price"
                                     id="price" required onValueChange={(e) => onInputNumberChange(e, 'price')} />&nbsp;
                                 {submitted && !product.price && <small className="p-error">price is required.</small>}
                             </div>
@@ -541,8 +541,8 @@ export default function AdminGallery() {
                         </label>
                         <div className="formgrid grid">
                             <div className="field col">
-                                <InputNumber value={product.disPrice} style={{ width: "50%" }} name="disPrice"
-                                    id="disPrice" required onValueChange={(e) => onInputNumberChange(e, 'disPrice')} />&nbsp;
+                                <InputNumber value={product.disPrice} style={{ width: "100%" }} name="disPrice"
+                                    id="disPrice" required onValueChange={(e) => onInputNumberChange(e, 'disPrice')} />
                                 {submitted && !product.disPrice && <small className="p-error">disPrice is required.</small>}
                             </div>
                         </div>
@@ -556,19 +556,16 @@ export default function AdminGallery() {
                                 כמות במלאי
                             </label>
                             <div className="field">
-                                <InputNumber value={product.quantity} style={{ width: "30%" }} name="quantity" id="quantity" required onValueChange={(e) => onInputNumberChange(e, 'quantity')} />
-                                {submitted && !product.quantity && <small className="p-error">quantity is required.</small>}&nbsp;
-                                {/* <div>
-                    {submitted && !product.quantity && <small className="p-error">quantity is required.</small>}&nbsp;&nbsp;&nbsp;
-                </div> */}
+                                <InputNumber value={product.quantity} style={{ width: "100%" }} name="quantity" id="quantity" required onValueChange={(e) => onInputNumberChange(e, 'quantity')} />
+                                {submitted && !product.quantity && <small className="p-error">quantity is required.</small>}
                             </div>
-                        </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span  >
                             <label htmlFor="size" className="font-bold">
                                 גודל
                             </label>
                             <div className="field">
-                                <InputNumber value={product.size} id="size" onValueChange={(e) => onInputNumberChange(e, 'size')} required className={classNames({ 'p-invalid': submitted && !product.size })} />
+                                <InputNumber value={product.size} style={{ width: "100%" }} id="size" onValueChange={(e) => onInputNumberChange(e, 'size')} required className={classNames({ 'p-invalid': submitted && !product.size })} />
                                 {submitted && !product.size && <small className="p-error">size is required.</small>}
                             </div>
                         </span>
@@ -599,11 +596,11 @@ export default function AdminGallery() {
 
                         <div className="formgrid grid" style={{ display: "flex", marginLeft: "30%", marginRight: "30%" }}>
                             <div className="field-radiobutton col-6">
-                                <label htmlFor="category1">נשים</label>
+                                <label htmlFor="category1">נשים</label>&nbsp;&nbsp;
                                 <RadioButton inputId="category1" name="category" value="נשים" onChange={onCategoryChange} checked={product.category === 'נשים'} />
                             </div>
                             <div className="field-radiobutton col-6">
-                                <label htmlFor="category2">גברים</label>
+                                <label htmlFor="category2">גברים</label>&nbsp;&nbsp;
                                 <RadioButton inputId="category2" name="category" value="גברים" onChange={onCategoryChange} checked={product.category === 'גברים'} />
                             </div>
                         </div>
@@ -614,7 +611,7 @@ export default function AdminGallery() {
                     <label htmlFor="otherColors" className="font-bold">
                         קיים בצבעים
                     </label>
-                    <div className="card p-fluid">
+                    <div className=" p-fluid">
                         <Chips value={product.otherColors || value} onChange={(e) => { setValue(e.value); onInputChange(e, 'otherColors') }} required className={classNames({ 'p-invalid': submitted && !product.otherColors })} />
                     </div>
                     {submitted && !product.otherColors && <small className="p-error">otherColors is required.</small>}
