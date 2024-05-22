@@ -55,11 +55,7 @@ export default function Company() {
         return rowData.imageUrl.split("\\")[2];
     };
 
-    const { data: products, isSuccess: sss } = useGetCompaniesQuery()
-
-    // const formatCurrency = (value) => {
-    //     return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    // };
+    const { data: products, isSuccess: sss,isLoading } = useGetCompaniesQuery()
 
     const onTemplateSelect = (e) => {
         setSelectedImg(e.files[0])
@@ -86,10 +82,6 @@ export default function Company() {
     const hideDeleteProductDialog = () => {
         setDeleteProductDialog(false);
     };
-
-    // const hideDeleteProductsDialog = () => {
-    //     setDeleteProductsDialog(false);
-    // };
 
     const saveProduct = () => {
         setSubmitted(true);
@@ -230,24 +222,6 @@ export default function Company() {
          HandleDeleteClick(product._id)
     };
 
-    // const confirmDeleteSelected = () => {
-    //     setDeleteProductsDialog(true);
-    // };
-
-    // const deleteSelectedProducts = () => {
-    //     let _products = products.filter((val) => !selectedProducts.includes(val));
-    //     setDeleteProductsDialog(false);
-    //     setSelectedProducts(null);
-    //     toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-    // };
-
-    // const onCategoryChange = (e) => {
-    //     let _product = { ...product };
-
-    //     _product['category'] = e.value;
-    //     setProduct(_product);
-    // };
-
     const onInputChange = (e, name) => {
         const val = (e.target && e.target.value) || '';
         let _product = { ...product };
@@ -257,35 +231,6 @@ export default function Company() {
         setProduct(_product);
     };
 
-    // const onInputNumberChange = (e, name) => {
-    //     const val = e.value || 0;
-    //     let _product = { ...product };
-
-    //     _product[`${name}`] = val;
-
-    //     setProduct(_product);
-    // };
-
-    // const leftToolbarTemplate = () => {
-    //     return (
-    //         <div className="flex flex-wrap gap-2">
-    //             <Button label="New Company" icon="pi pi-plus" severity="success" onClick={openNew} />
-    //         </div>
-    //     );
-    // };
-
-    // const priceBodyTemplate = (rowData) => {
-    //     return formatCurrency(rowData.price);
-    // };
-
-    // const ratingBodyTemplate = (rowData) => {
-    //     return <Rating value={rowData.rating} readOnly cancel={false} />;
-    // };
-
-    // const statusBodyTemplate = (rowData) => {
-    //     return <Tag value={rowData.inventoryStatus} severity={getSeverity(rowData)}></Tag>;
-    // };
-
     const actionBodyTemplate = (rowData) => {
         return (
             <React.Fragment>
@@ -294,22 +239,6 @@ export default function Company() {
             </React.Fragment>
         );
     };
-
-    // const getSeverity = (product) => {
-    //     switch (product.inventoryStatus) {
-    //         case 'INSTOCK':
-    //             return 'success';
-
-    //         case 'LOWSTOCK':
-    //             return 'warning';
-
-    //         case 'OUTOFSTOCK':
-    //             return 'danger';
-
-    //         default:
-    //             return null;
-    //     }
-    // };
 
     const imageBodyTemplate = (rowData) => {
         return <img src={"http://localhost:3150/uploads/" + rowData.imageUrl.split("\\")[2]} alt={rowData.imageUrl} className="shadow-2 border-round" style={{ width: '200px' }} />;
@@ -335,6 +264,12 @@ export default function Company() {
             <Button label="אישור" icon="pi pi-check" severity="danger" onClick={deleteProduct} />
         </React.Fragment>
     );
+
+    if (isLoading) return (
+        <div style={{ backgroundColor: '#ebeced', minHeight: '410px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h2 style={{ direction: 'rtl', justifyContent: 'center' }}><i className="pi pi-spin pi-spinner" style={{ fontSize: '2rem' }}></i>  בטעינה... </h2>
+        </div>
+    )
 
     return (
         <div>

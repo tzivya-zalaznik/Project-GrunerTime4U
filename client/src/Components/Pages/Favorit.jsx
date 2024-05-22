@@ -56,15 +56,16 @@ const Favorite = () => {
                             <div className="col-12 md:col-6 xl:col-3 p-3">
                                 <div className="surface-card shadow-2 border-round p-4 ccc">
                                     <div className="flex flex-column align-items-center border-bottom-1 surface-border pb-3">
+                                        <img style={{ height: '50px', width: 'auto', marginBottom: '5px', opacity: `${product.quantity == 0 ? '30%' : '100%'}` }} src={"http://localhost:3150/uploads/" + product.company.imageUrl.split("\\")[2]} alt="Image" preview width="250" />
                                         <div class="container">
-                                            <img className={product.quantity == 0 ? "watchImageOutOfStock " : "watchImage"} src={"http://localhost:3150/uploads/" + product.imageUrl.split("\\")[2]} /*alt={product.name} indicatorIcon={icon}*/ alt="Image" preview width="250" />
+                                            <img className={product.quantity == 0 ? "watchImageOutOfStock " : "watchImage"} src={"http://localhost:3150/uploads/" + product.imageUrl.split("\\")[2]} alt="Image" preview width="250" />
                                             {product.price != product.disPrice ? <span class="onsale sold-out" style={{ opacity: `${product.quantity == 0 ? '30%' : '100%'}` }}>מבצע!</span> : null}
 
                                             {product.quantity == 0 ? <div class="caption" style={{ opacity: '80%', fontSize: '120px', color: 'gray' }}>
                                                 אזל
                                             </div> : null}</div>
                                         <span className="text-xl text-900 font-medium mb-2" style={{ opacity: `${product.quantity == 0 ? '30%' : '100%'}` }}>
-                                            {product.company.name}
+                                            {product.companyBarcode}
                                         </span>
                                         <span className="text-600 font-medium mb-3" style={{ opacity: `${product.quantity == 0 ? '30%' : '100%'}` }}>
                                             {product.category}
@@ -132,14 +133,21 @@ const Favorite = () => {
             return <div className="grid grid-nogutter">{list}</div>;
         return <h1>There is no watch</h1>
     };
+
+    if (isLoading) return (
+        <div style={{ backgroundColor: '#ebeced', minHeight: '410px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h2 style={{ direction: 'rtl', justifyContent: 'center' }}><i className="pi pi-spin pi-spinner" style={{ fontSize: '2rem' }}></i>  בטעינה... </h2>
+        </div>
+    )
+
     if (!full_favourites?.length) return <h1>There is no watch</h1>
-    if (isLoading) return <h1>Loading</h1>
-    if (isError) return <h2>{error}</h2>
+
+    if (isError) return <h2>{error.data.message}</h2>
     return (
         <>
             <div style={{ backgroundColor: '#ffffff', minHeight: '410px' }}>
                 <div >
-                    <DataView value={full_favourites} listTemplate={listTemplate} paginator rows={4} alwaysShowPaginator={false} />
+                    <DataView value={full_favourites} listTemplate={listTemplate} />
                 </div>
             </div>
         </>

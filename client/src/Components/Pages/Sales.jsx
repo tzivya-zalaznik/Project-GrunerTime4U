@@ -153,6 +153,12 @@ export default function CustomFilterDemo() {
         setOutcomesSum(y)
     }
 
+    if (isLoading) return (
+        <div style={{ backgroundColor: '#ebeced', minHeight: '410px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h2 style={{ direction: 'rtl', justifyContent: 'center' }}><i className="pi pi-spin pi-spinner" style={{ fontSize: '2rem' }}></i>  בטעינה... </h2>
+        </div>
+    )
+
     return (
         <>
             <Toast ref={toast} />

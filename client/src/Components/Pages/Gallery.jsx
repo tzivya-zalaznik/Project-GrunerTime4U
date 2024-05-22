@@ -249,7 +249,11 @@ const Gallery = () => {
     return <div className="grid grid-nogutter">{list}</div>;
   };
 
-  if (isLoading) return <h1>Loading</h1>
+  if (isLoading) return (
+    <div style={{ backgroundColor: '#ebeced', minHeight: '410px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <h2 style={{ direction: 'rtl', justifyContent: 'center' }}><i className="pi pi-spin pi-spinner" style={{ fontSize: '2rem' }}></i>  בטעינה... </h2>
+    </div>
+)
 
   if (isError) return <h2>{error.data.message}</h2>
   return (
