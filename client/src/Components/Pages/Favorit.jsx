@@ -131,7 +131,7 @@ const Favorite = () => {
         });
         if (isWatch)
             return <div className="grid grid-nogutter">{list}</div>;
-        return <h1>There is no watch</h1>
+        return <div style={{height:'410px',display: 'flex',flexDirection: 'column',justifyContent: 'center',backgroundColor:'#ffff'}}><div style={{ display: 'flex', justifyContent: 'center',direction:'rtl' }}><i className="pi pi-search" style={{ fontSize: '1rem' }}></i>&nbsp; לא נמצאו פריטים התואמים לחיפוש שלך...</div></div>;
     };
 
     if (isLoading) return (
@@ -140,7 +140,7 @@ const Favorite = () => {
         </div>
     )
 
-    if (!full_favourites?.length) return <h1>There is no watch</h1>
+    if (!full_favourites?.length) return <div style={{height:'410px',display: 'flex',flexDirection: 'column',justifyContent: 'center',backgroundColor:'#ffff'}}><div style={{ display: 'flex', justifyContent: 'center',direction:'rtl' }}><i className="pi pi-search" style={{ fontSize: '1rem' }}></i>&nbsp; לא נמצאו פריטים התואמים לחיפוש שלך...</div></div>;
 
     if (isError) return <h2>{error.data.message}</h2>
     return (
