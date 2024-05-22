@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
 import { DataView } from 'primereact/dataview';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
 import { useAddToFavoriteMutation, useGetGalleryQuery } from '../../Slices/galleryApiSlice';
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../Slices/authSlice';
-import Search from '../Search';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Dialog } from 'primereact/dialog';
-import { Sidebar } from 'primereact/sidebar';
 import { Image } from 'primereact/image';
-import { Divider } from 'primereact/divider';
 import { Checkbox } from "primereact/checkbox";
 import { Slider } from "primereact/slider";
 import { InputText } from "primereact/inputtext";
-import { DataViewLayoutOptions } from 'primereact/dataview';
 import Swal from 'sweetalert2'
-import { Dropdown } from 'primereact/dropdown';
 import { Toast } from 'primereact/toast';
 import { useGetCompaniesQuery } from '../../Slices/companiesApiSlice';
-//import withReactContent from 'sweetalert2-react-content'
+
 const Gallery = () => {
   const { data: gallery, isSuccess: success, isLoading, isError, error } = useGetGalleryQuery()
   const { data: companies, isSuccess: sss } = useGetCompaniesQuery()
@@ -45,10 +36,6 @@ const Gallery = () => {
   const [maxPrice, setMaxPrice] = useState(0);
   const [value, setValue] = useState([0, 1000]);
   const toast = useRef(null);
-  const sortOptions = [
-    { label: 'Price High to Low', value: '!price' },
-    { label: 'Price Low to High', value: 'price' }
-  ];
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const icon = (<i className="pi pi-search"></i>)
@@ -65,7 +52,6 @@ const Gallery = () => {
         (selectedCompanies.length == 0 || selectedCompanies.includes(w.company.name))
         && w.disPrice >= value[0] && w.disPrice <= value[1])
       setShowGallery(filtered)
-      // setMaxPrice(Math.max(...filtered.map(item => item.disPrice)))
     }
   }, [gender, selectedCompanies])
 
@@ -81,17 +67,6 @@ const Gallery = () => {
   useEffect(() => {
     if (maxPrice > 0) setValue([0, maxPrice])
   }, [maxPrice])
-
-  const footerContent = (
-    <div>
-      <Button label="ביטול" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />
-      <Button label="כניסה" icon="pi pi-check" onClick={() => { setVisible(false); navigate('/login') }} autoFocus />
-    </div>
-  );
-  const categories = [
-    { name: 'נשים' },
-    { name: 'גברים' }
-  ];
 
   const onCategoryChange = (e) => {
     let _selectedCompanies = [...selectedCompanies];
@@ -142,37 +117,21 @@ const Gallery = () => {
 
 
   const showSwal = () => {
-    // Swal.fire({
-    //   title: <i>Input something</i>,
-    //   input: 'text',
-    //   inputValue,
-    //   preConfirm: () => {
-    //     setInputValue(Swal.getInput()?.value || '')
-    //   },
-    // })
-
     Swal.fire({
-      reverseButtons:true,
+      reverseButtons: true,
       title: "<strong>משתמש יקר</strong>",
       icon: "warning",
       iconColor: '#1b5446',
-      html: `
-   יש לבצע כניסה למערכת לפני בחירת מועדפים
-      `,
+      html: `יש לבצע כניסה למערכת לפני בחירת מועדפים`,
       showCloseButton: false,
       showCancelButton: true,
       focusConfirm: true,
       cancelButtonColor: '#1b5446',
       confirmButtonColor: '#1b5446',
       confirmButtonAriaLabel: "Thumbs up, great!",
-      cancelButtonText: `
-        <i class="fa fa-thumbs-down"></i>ביטול
-      `,
-      confirmButtonText: `
-      <i class="sweetButton"></i> כניסה
-    `,
+      cancelButtonText: `<i class="fa fa-thumbs-down"></i>ביטול`,
+      confirmButtonText: `<i class="sweetButton"></i> כניסה`,
       cancelButtonAriaLabel: "Thumbs down"
-
     }).then(res => {
       if (res.isConfirmed) {
         navigate('/login')
@@ -182,16 +141,15 @@ const Gallery = () => {
   }
 
   const gridItem = (product) => {
-    let q = product.quantity != 0
     return (
       <div>
         <div className={product.quantity == 0 ? "outOfStock" : ""} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly' }} className="ccc">
               <div className="col-12 md:col-6 xl:col-3 p-3">
                 <div className="surface-card shadow-2 border-round p-4 ccc">
                   <div className="flex flex-column align-items-center border-bottom-1 surface-border pb-3">
+                      <img style={{height:'50px',width:'auto',marginBottom:'5px',opacity: `${product.quantity == 0 ? '30%' : '100%'}`}} src={"http://localhost:3150/uploads/" + product.company.imageUrl.split("\\")[2]} /*alt={product.name}*/ indicatorIcon={icon} alt="Image" preview width="250" />
                     <div class="container">
                       <img className={product.quantity == 0 ? "watchImageOutOfStock " : "watchImage"} src={"http://localhost:3150/uploads/" + product.imageUrl.split("\\")[2]} /*alt={product.name}*/ indicatorIcon={icon} alt="Image" preview width="250" />
                       {product.price != product.disPrice ? <span class="onsale sold-out" style={{ opacity: `${product.quantity == 0 ? '30%' : '100%'}` }}>מבצע!</span> : null}
@@ -200,14 +158,14 @@ const Gallery = () => {
                         אזל
                       </div> : null}</div>
                     <span className="text-xl text-900 font-medium mb-2" style={{ opacity: `${product.quantity == 0 ? '30%' : '100%'}` }}>
-                      {product.company.name}
+                      {product.companyBarcode}
                     </span>
                     <span className="text-600 font-medium mb-3" style={{ opacity: `${product.quantity == 0 ? '30%' : '100%'}` }}>
                       {product.category}
                     </span>
                     <div class="price-container">
                       <span className="text-2xl font-semibold current-price" style={{ opacity: `${product.quantity == 0 ? '30%' : '100%'}` }}>₪{product.disPrice}</span>
-                      {product.price == product.disPrice ? null : <span className=" font-medium line-through original-price" style={{ opacity: product.price == product.disPrice ? '100%' : '70%', fontSize: product.price == product.disPrice ? 'xxl' : 'small' }} >₪{product.price}</span>}
+                      {product.price == product.disPrice ? <span style={{ opacity: '0%' }}>----</span> : <span className=" font-medium line-through original-price" style={{ opacity: product.price == product.disPrice ? '100%' : '70%', fontSize: product.price == product.disPrice ? 'xxl' : 'small' }} >₪{product.price}</span>}
                     </div>
                   </div>
                   <div className="flex pt-3 justify-content-between align-items-center">
@@ -225,18 +183,12 @@ const Gallery = () => {
                       </span>
                       <span className="p-ink"></span>
                     </button>
-                    {/* <button className="p-element p-ripple p-button-text p-button p-component">
-                                {/* <span className="p-button-icon p-button-icon-left pi pi-user" aria-hidden="true"></span> }
-                                       <Button icon="pi pi-heart" className="p-button-rounded" disabled={product.quantity == 0} onClick={() => HandleHeartClick(product._id)}></Button>
-                                <span className="p-ink"></span>
-                            </button> */}
                   </div>
                   <Dialog visible={showWatchDetails} style={{ width: '50rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
                     <div className='details' style={{ display: 'flex', justifyContent: 'space-around', direction: 'rtl', textAlign: 'right' }}>
                       <div className="card flex justify-content-center">
                         <Image src={watchDetails ? "http://localhost:3150/uploads/" + watchDetails[0]?.imageUrl.split("\\")[2] : ""} alt="Image" width="250" preview />
                       </div>
-
                       <div style={{ float: 'left', width: '60%' }}>
                         <div style={{ textAlign: 'right' }}><h1>{watchDetails ? watchDetails[0]?.companyBarcode : null}</h1></div>
                         <div style={{ textAlign: 'right' }}>{watchDetails ? watchDetails[0]?.description : null}</div>
@@ -257,15 +209,11 @@ const Gallery = () => {
             </div>
           </div>
         </div>
-
       </div>
     );
   };
 
   const onSortChange = (event) => {
-    // debugger
-    // const value = event.value;
-
     if (sortKey == 1) {
       setSortOrder(1);
       setSortField('price');
@@ -290,10 +238,6 @@ const Gallery = () => {
 
   }
 
-  const header = () => {
-    return <Dropdown options={sortOptions} value={sortKey} optionLabel="label" placeholder="Sort By Price" onChange={onSortChange} className="w-full sm:w-14rem" />;
-  };
-
   const listTemplate = (items) => {
     if (!items || items.length === 0) return null;
 
@@ -304,7 +248,6 @@ const Gallery = () => {
     return <div className="grid grid-nogutter">{list}</div>;
   };
 
-  const [barcode, setBarcode] = useState('')
   if (isLoading) return <h1>Loading</h1>
   if (isError) return <h2>{error.data.message}</h2>
   return (
@@ -320,7 +263,7 @@ const Gallery = () => {
             <div className="card">
               <span className="p-input-icon-left" style={{ display: 'flex', alignItems: 'center' }}>
                 <i className="pi pi-search" />
-                <InputText onChange={(e) => barcodeFilter(e.target.value)} placeholder="Search" style={{ flex: 1,width:'50%' }} />
+                <InputText onChange={(e) => barcodeFilter(e.target.value)} placeholder="Search" style={{ flex: 1, width: '50%' }} />
               </span>
             </div>
             <br /><br />
@@ -336,7 +279,7 @@ const Gallery = () => {
           <div class="inline-block   font-bold text-center p-4 border-round" style={{ width: '15%', marginTop: '60px', marginRight: '10px' }}>
             <div className=" flex justify-content-center">
               <div className="flex flex-column gap-3">
-                {companies.map((company) => {
+                {companies?.map((company) => {
                   return (
                     <div className="flex align-items-center"  >
                       <Checkbox name="company" value={company} onChange={onCategoryChange} checked={selectedCompanies.some((item) => item === company?.name)} />
@@ -349,10 +292,17 @@ const Gallery = () => {
               </div>
             </div>
             <br /><br />
-            <div className=" flex justify-content-center">
+
+            <div className=" flex justify-content-center" style={{ justifyContent: 'center' }}>
               <div className="flex flex-row gap-0">
-                &nbsp; {value[0]}&nbsp;<Slider value={value} onChange={(e) => setValue(e.value)} style={{width:'300px'}}/*className="w-10rem"*/ range min={0} max={maxPrice} step={10} /><br />&nbsp;&nbsp;{value[1]}
+                <Slider value={value} onChange={(e) => setValue(e.value)} className="w-8rem" range min={0} max={maxPrice} step={10} /><br />
               </div></div>
+            <span>
+              &nbsp; {value[0]}&nbsp;
+            </span>
+            <span>
+              &nbsp;&nbsp;{value[1]}
+            </span>
             <br /><br />
             <br />
             <button className="p-element p-ripple p-button-text p-button p-component" onClick={() => onSortChange()}>
