@@ -11,9 +11,10 @@ import Swal from 'sweetalert2';
 import { Card } from 'primereact/card';
 
 const Register = () => {
-    // State to track email validity
     const [emailValid, setEmailValid] = useState(true);
-
+    const navigate = useNavigate();
+    const [registerFunc, { isError, isSuccess, data }] = useRegisterMutation();
+    
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -41,42 +42,26 @@ const Register = () => {
         }
     });
 
-    // Function to validate email format using regex
     const validateEmail = (email) => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     };
 
-    // Function to handle form submission
     const handleFormSubmit = (e) => {
         e.preventDefault();
         if (formik.isValid) {
             registerFunc(formik.values);
         } else {
-            setEmailValid(false); // Set email validity to false if form is not valid
+            setEmailValid(false);
         }
     };
 
-    // Function to check if a form field is invalid
-    const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
-
-    // Function to get form error message
-    const getFormErrorMessage = (name) => {
-        return isFormFieldInvalid(name) ? <small className="p-error">{formik.errors[name]}</small> : <small className="p-error">&nbsp;</small>;
-    };
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [registerFunc, { isError, isSuccess, data }] = useRegisterMutation();
-
-    // Effect to navigate on successful registration
     useEffect(() => {
         if (isSuccess) {
             navigate("/login");
         }
     }, [isSuccess]);
 
-    // Effect to show error message if registration fails
     useEffect(() => {
         if (isError) {
             Swal.fire({
@@ -93,7 +78,7 @@ const Register = () => {
             <Card style={{ width: '40%', marginBottom: '20px', marginTop: '20px', marginLeft: '30%', flexWrap: 'wrap', alignItems: 'flex-end' }}>
                 <form onSubmit={handleFormSubmit} className="flex flex-column gap-2">
                     <br />
-                    <h1>Register</h1>
+                    <h1>הרשמה</h1>
                     <br />
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <div style={{ maxWidth: '300px' }}>
@@ -110,7 +95,6 @@ const Register = () => {
                             </span>
                             <br />
                             {formik.errors.name && <small className="p-error">{formik.errors.name}</small>}
-                            {/* {getFormErrorMessage('name')} */}
                             <br />
                             <span className="p-float-label p-input-icon-right">
                                 <InputText
@@ -118,7 +102,6 @@ const Register = () => {
                                     autoFocus
                                     onChange={(e) => {
                                         formik.setFieldValue('email', e.target.value);
-                                        // setEmailValid(validateEmail(e.target.value)); // Validate email as user types
                                     }}
                                     className={classNames({ 'p-invalid': !emailValid || formik.errors.email })}
                                 />
@@ -127,7 +110,6 @@ const Register = () => {
                             </span>
                             <br />
                             {formik.errors.email && <small className="p-error">{formik.errors.email}</small>}
-                            {/* {getFormErrorMessage('email')} */}
                             <br />
                             <span className="p-float-label">
                                 <Password
@@ -146,7 +128,6 @@ const Register = () => {
                                 <label htmlFor="input_value">Password</label>
                             </span>
                             {formik.errors.password && <small className="p-error">{formik.errors.password}</small>}
-                            {/* {getFormErrorMessage('password')} */}
                         </div>
                         <br />
                     </div>
