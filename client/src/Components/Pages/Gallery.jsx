@@ -240,7 +240,7 @@ const Gallery = () => {
   }
 
   const listTemplate = (items) => {
-    if (!items || items.length === 0) return null;
+    if (!items || items.length === 0) return <div style={{ width: '85%', display: 'flex', justifyContent: 'center',direction:'rtl' }}><i className="pi pi-search" style={{ fontSize: '1rem' }}></i>&nbsp; לא נמצאו פריטים התואמים לחיפוש שלך...</div>;
 
     let list = items.map((product, index) => {
       return gridItem(product, index);
@@ -257,14 +257,13 @@ const Gallery = () => {
 
   if (isError) return <h2>{error.data.message}</h2>
   return (
-    <>
-    <div style={{minHeight:'410px'}}>
+    <div style={{minHeight:'410px',backgroundColor:'white'}}>
       <Toast ref={toast} />
-      <div className="card flex justify-content-center" style={{ display: 'flex', flexDirection: 'row', backgroundColor: '#f8f9fa' }}>
+      <div className="card flex justify-content-center" style={{ display: 'flex', flexDirection: 'row', backgroundColor: '#ffff' }}>
         <div className="card" style={{ width: '85%', display: 'flex', justifyContent: 'center' }}>
           <DataView sortField={sortField} sortOrder={sortOrder} value={showGallery} listTemplate={listTemplate} />
         </div>
-        <div className="search-container" style={{ width: '15%' }}>
+        <div className="search-container" style={{ width: '15%',height:'45vw' }}>
           <br />
           <div className="search">
             <div className="card">
@@ -283,7 +282,7 @@ const Gallery = () => {
             <label htmlFor="women" className="ml-2">נשים</label>
           </div>
 
-          <div class="inline-block   font-bold text-center p-4 border-round" style={{ width: '15%', marginTop: '60px', marginRight: '10px' }}>
+          <div class="inline-block   font-bold text-center p-4 border-round" style={{ marginTop: '60px', marginRight: '10px' }}>
             <div className=" flex justify-content-center">
               <div className="flex flex-column gap-3">
                 {companies?.map((company) => {
@@ -304,10 +303,10 @@ const Gallery = () => {
               <div className="flex flex-row gap-0">
                 <Slider value={value} onChange={(e) => setValue(e.value)} className="w-8rem" range min={0} max={maxPrice} step={10} /><br />
               </div></div>
-            <span>
+            <span style={{marginTop:'100vw'}}>
               &nbsp; {value[0]}&nbsp;
             </span>
-            <span>
+            <span style={{marginLeft:"6vw"}}>
               &nbsp;&nbsp;{value[1]}
             </span>
             <br /><br />
@@ -326,7 +325,6 @@ const Gallery = () => {
           </div>
         </div>
       </div></div>
-    </>
   )
 }
 export default Gallery;
