@@ -9,6 +9,7 @@ import { Dialog } from 'primereact/dialog';
 import { Image } from 'primereact/image';
 import { Checkbox } from "primereact/checkbox";
 import { Slider } from "primereact/slider";
+import { Sidebar } from "primereact/sidebar";
 import { InputText } from "primereact/inputtext";
 import Swal from 'sweetalert2'
 import { Toast } from 'primereact/toast';
@@ -240,7 +241,7 @@ const Gallery = () => {
   }
 
   const listTemplate = (items) => {
-    if (!items || items.length === 0) return <div style={{ width: '85%', display: 'flex', justifyContent: 'center',direction:'rtl' }}><i className="pi pi-search" style={{ fontSize: '1rem' }}></i>&nbsp; לא נמצאו פריטים התואמים לחיפוש שלך...</div>;
+    if (!items || items.length === 0) return <div style={{ width: '85%', display: 'flex', justifyContent: 'center', direction: 'rtl' }}><i className="pi pi-search" style={{ fontSize: '1rem' }}></i>&nbsp; לא נמצאו פריטים התואמים לחיפוש שלך...</div>;
 
     let list = items.map((product, index) => {
       return gridItem(product, index);
@@ -251,19 +252,86 @@ const Gallery = () => {
 
   if (isLoading) return (
     <div style={{ backgroundColor: '#ebeced', minHeight: '410px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <h2 style={{ direction: 'rtl', justifyContent: 'center' }}><i className="pi pi-spin pi-spinner" style={{ fontSize: '2rem' }}></i>  בטעינה... </h2>
+      <h2 style={{ direction: 'rtl', justifyContent: 'center' }}><i className="pi pi-spin pi-spinner" style={{ fontSize: '2rem' }}></i>  בטעינה... </h2>
     </div>
-)
+  )
 
   if (isError) return <h2>{error.data.message}</h2>
   return (
-    <div style={{minHeight:'410px',backgroundColor:'white'}}>
+    <div style={{ minHeight: '410px', backgroundColor: 'white' }}>
       <Toast ref={toast} />
       <div className="card flex justify-content-center" style={{ display: 'flex', flexDirection: 'row', backgroundColor: '#ffff' }}>
         <div className="card" style={{ width: '85%', display: 'flex', justifyContent: 'center' }}>
           <DataView sortField={sortField} sortOrder={sortOrder} value={showGallery} listTemplate={listTemplate} />
         </div>
-        <div className="search-container" style={{ width: '15%',height:'45vw' }}>
+        <button style={{ backgroundColor: "#235447" }} icon="pi pi-plus" onClick={() => setVisibleRight(true)} />
+        <Sidebar visible={visibleRight} position="right" onHide={() => setVisibleRight(false)}>
+          <div>bla bla bla</div>
+          <div className="" style={{ width: '15%', height: '45vw' }}>
+            <br />
+            <div className="">
+              <div className="card">
+                <span className="p-input-icon-left" style={{ display: 'flex', alignItems: 'center' }}>
+                  <i className="pi pi-search" />
+                  <InputText onChange={(e) => barcodeFilter(e.target.value)} placeholder="Search" style={{ flex: 1, width: '50%' }} />
+                </span>
+              </div>
+              <br /><br />
+              <Checkbox inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
+              <label htmlFor="men" className="ml-2">גברים</label>
+            </div>
+            <br />
+            <div className="flex justify-content-center">
+              <Checkbox inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
+              <label htmlFor="women" className="ml-2">נשים</label>
+            </div>
+
+            <div class="inline-block   font-bold text-center p-4 border-round" style={{ marginTop: '60px', marginRight: '10px' }}>
+              <div className=" flex justify-content-center">
+                <div className="flex flex-column gap-3">
+                  {companies?.map((company) => {
+                    return (
+                      <div className="flex align-items-center"  >
+                        <Checkbox name="company" value={company} onChange={onCategoryChange} checked={selectedCompanies.some((item) => item === company?.name)} />
+                        <label className="ml-2">
+                          {company.name}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <br /><br />
+
+              <div className=" flex justify-content-center" style={{ justifyContent: 'center' }}>
+                <div className="flex flex-row gap-0">
+                  <Slider value={value} onChange={(e) => setValue(e.value)} className="w-8rem" range min={0} max={maxPrice} step={10} /><br />
+                </div></div>
+              <span style={{ marginTop: '100vw' }}>
+                &nbsp; {value[0]}&nbsp;
+              </span>
+              <span style={{ marginLeft: "6vw" }}>
+                &nbsp;&nbsp;{value[1]}
+              </span>
+              <br /><br />
+              <br />
+              <button className="p-element p-ripple p-button-text p-button p-component" onClick={() => onSortChange()}>
+                <span className="p-button-icon p-button-icon-left pi pi-sort-alt" aria-hidden="true"></span>
+                <span className="p-button-label">
+                  מיון לפי מחיר
+                </span>
+                <span className="p-ink"></span>
+              </button>
+              <div className="slider-values">
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </Sidebar>
+
+
+        <div className="search-container" style={{ width: '15%', height: '45vw' }}>
           <br />
           <div className="search">
             <div className="card">
@@ -303,10 +371,10 @@ const Gallery = () => {
               <div className="flex flex-row gap-0">
                 <Slider value={value} onChange={(e) => setValue(e.value)} className="w-8rem" range min={0} max={maxPrice} step={10} /><br />
               </div></div>
-            <span style={{marginTop:'100vw'}}>
+            <span style={{ marginTop: '100vw' }}>
               &nbsp; {value[0]}&nbsp;
             </span>
-            <span style={{marginLeft:"6vw"}}>
+            <span style={{ marginLeft: "6vw" }}>
               &nbsp;&nbsp;{value[1]}
             </span>
             <br /><br />
