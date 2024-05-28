@@ -11,6 +11,7 @@ const mongoose = require("mongoose")
 const PORT = process.env.PORT || 2915
 const app = express()
 const path = require('path')
+const  ErrorHandler  = require("./middleware/errorHandler")
 
 connectDB()
 
@@ -36,6 +37,8 @@ app.get('/uploads/:filename', (req, res) => {
 });
 
 app.use('/uploads', express.static(__dirname + '/public/uploads'));
+
+app.use(ErrorHandler)
 
 //run
 mongoose.connection.once('open', () => {
