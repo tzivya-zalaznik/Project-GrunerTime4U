@@ -397,3 +397,21 @@ font-size: 32px;
 .vertical-line {
   border-left: 3px solid rgb(27, 84, 70);
 }
+
+.p-slider .p-slider-range {
+  background: #1b5446;
+}
+
+.p-slider .p-slider-handle {
+  height: 20px;
+  width: 20px;
+  background: #1b5446;
+  border: 0 none;
+  border-radius: 50%;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+  border-color: #1b5446;
+  background: #1b5446;
+}

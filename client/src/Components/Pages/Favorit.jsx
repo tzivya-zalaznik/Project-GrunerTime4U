@@ -69,15 +69,15 @@ const Favorite = () => {
                                     </div>
                                     <div className="flex pt-3 justify-content-between align-items-center">
                                         <button className="p-element p-ripple p-button-text p-button p-component" disabled={product.quantity == 0} onClick={() => HandleWatchDetails(product._id)}>
-                                            <span className="p-button-icon p-button-icon-left pi pi-plus" aria-hidden="true"></span>
-                                            <span className="p-button-label">
+                                            <span className="p-button-icon p-button-icon-left pi pi-plus" style={{color:'#1b5446'}} aria-hidden="true"></span>
+                                            <span className="p-button-label" style={{color:'#1b5446'}}>
                                                 פרטי מוצר
                                             </span>
                                             <span className="p-ink"></span>
                                         </button>
                                         <button className="p-element p-ripple p-button-text p-button p-component" disabled={product.quantity == 0} onClick={() => HandleHeartClick(product._id)}>
-                                            <span className="p-button-icon p-button-icon-left pi pi-heart" aria-hidden="true"></span>
-                                            <span className="p-button-label">
+                                            <span className="p-button-icon p-button-icon-left pi pi-heart-fill" style={{color:'#1b5446'}} aria-hidden="true"></span>
+                                            <span className="p-button-label"style={{color:'#1b5446'}}>
                                                 הסר מהמועדפים
                                             </span>
                                             <span className="p-ink"></span>

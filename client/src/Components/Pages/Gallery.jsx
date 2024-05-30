@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DataView } from 'primereact/dataview';
-import { useAddToFavoriteMutation, useGetGalleryQuery } from '../../Slices/galleryApiSlice';
+import { useAddToFavoriteMutation, useGetFavoriteQuery, useGetGalleryQuery } from '../../Slices/galleryApiSlice';
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../Slices/authSlice';
 import { useRef } from 'react';
@@ -14,10 +14,9 @@ import { InputText } from "primereact/inputtext";
 import Swal from 'sweetalert2'
 import { Toast } from 'primereact/toast';
 import { useGetCompaniesQuery } from '../../Slices/companiesApiSlice';
-import { ProgressSpinner } from 'primereact/progressspinner';
-import { Divider } from 'primereact/divider';
-import { RadioButton } from 'primereact/radiobutton';
+
 const Gallery = () => {
+  const watches = JSON.parse(localStorage.getItem("user"))?.watches
   const { data: gallery, isSuccess: success, isLoading, isError, error } = useGetGalleryQuery()
   const { data: companies, isSuccess: sss } = useGetCompaniesQuery()
   const [AddToFavorite, { data, isSuccess }] = useAddToFavoriteMutation()
@@ -86,7 +85,6 @@ const Gallery = () => {
       showSwal();
     }
     else {
-      let watches = JSON.parse(localStorage.getItem("user")).watches
       const duplicate = watches.filter(w => w == watch._id)
       if (!duplicate?.length) {
         toast.current.show({ severity: 'success', summary: `${watch.companyBarcode}`, detail: 'נוסף בהצלחה', life: 3000 });
@@ -142,7 +140,6 @@ const Gallery = () => {
     });
 
   }
-
   const gridItem = (product) => {
     return (
       <div>
@@ -173,15 +170,15 @@ const Gallery = () => {
                   </div>
                   <div className="flex pt-3 justify-content-between align-items-center">
                     <button className="p-element p-ripple p-button-text p-button p-component" disabled={product.quantity == 0} onClick={() => HandleWatchDetails(product._id)}>
-                      <span className="p-button-icon p-button-icon-left pi pi-plus" aria-hidden="true"></span>
-                      <span className="p-button-label">
+                      <span className="p-button-icon p-button-icon-left pi pi-plus" style={{color:'#1b5446'}} aria-hidden="true"></span>
+                      <span className="p-button-label" style={{color:'#1b5446'}}>
                         פרטי מוצר
                       </span>
                       <span className="p-ink"></span>
                     </button>
                     <button className="p-element p-ripple p-button-text p-button p-component" disabled={product.quantity == 0} onClick={() => HandleHeartClick(product)}>
-                      <span className="p-button-icon p-button-icon-left pi pi-heart" aria-hidden="true"></span>
-                      <span className="p-button-label">
+                      <span className={watches?.includes(product._id)?"p-button-icon p-button-icon-left pi pi-heart-fill":"p-button-icon p-button-icon-left pi pi-heart"} style={{color:'#1b5446'}} full aria-hidden="true"></span>
+                      <span className="p-button-label" style={{color:'#1b5446'}}>
                         הוסף למועדפים
                       </span>
                       <span className="p-ink"></span>
@@ -348,7 +345,7 @@ const Gallery = () => {
               </span>
             </div>
             <br /><br />
-            <b>קטגוריות</b><br /><br />
+            <b style={{ marginLeft: '42%' }}>קטגוריות</b><br /><br />
             <label htmlFor="men" className="ml-2">גברים</label>&nbsp;&nbsp;
             <Checkbox inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
           </div>
@@ -379,7 +376,7 @@ const Gallery = () => {
           </span>
           <br /><br />
           <br />
-          <div><b>מותגים</b></div>
+          <div><b style={{ marginLeft: '42%' }}>מותגים</b></div>
           <div class="inline-block text-center p-4 border-round">
             <div className=" flex justify-content-center">
               <div className="flex flex-column gap-3">

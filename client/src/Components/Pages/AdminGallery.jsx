@@ -461,7 +461,7 @@ export default function AdminGallery() {
                     <Column field="companyBarcode" header="ברקוד חברה" sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="company.name" header="שם חברה" sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="barcode" header="ברקוד קופה" sortable style={{ minWidth: '8rem' }}></Column>
-                    <Column field="imageUrl" header="תמונה" body={imageBodyTemplate} exportField={imageUrlTemplate} style={{ width: '6rem' }}></Column>
+                    <Column field="imageUrl" header="תמונה" body={imageBodyTemplate} exportField={imageUrlTemplate} style={{ maxWidth: '8 rem' }}></Column>
                     <Column field="actualCost" header="מחיר מקורי" body={actualCostBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="price" header="מחיר" body={priceBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="disPrice" header="מחיר בהנחה" body={disPriceBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
