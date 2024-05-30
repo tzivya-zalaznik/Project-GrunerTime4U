@@ -95,8 +95,8 @@ export default function CustomFilterDemo() {
         Delete(watch)
         setDeleteProductDialog(false);
         setWatch(0);
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-        toast.current.show({ severity: 'error', summary: 'שימו לב', detail: 'יש צורך לעדכן כמות במלאי השעונין', life: 3000 });
+        toast.current.show({ severity: 'success', summary: '', detail: 'הרכישה נמחקה', life: 3000 });
+        toast.current.show({ severity: 'error', summary: 'שימו לב', detail: 'יש צורך לעדכן כמות במלאי השעונים', life: 3000 });
     }
 
 

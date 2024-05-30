@@ -10,6 +10,7 @@ import { classNames } from 'primereact/utils';
 import { Password } from 'primereact/password';
 import useAuth from '../../Hooks/useAuth';
 import { Card } from 'primereact/card';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const [emailCorrect, setEmailCorrect] = useState(true);
@@ -23,13 +24,13 @@ const Login = () => {
             let errors = {};
 
             if (!data.email) {
-                errors.email = 'Email is required.';
+                errors.email = '.שדה חובה';
             } else if (!validateEmail(data.email)) {
-                errors.email = 'Invalid email format.';
+                errors.email = '.כתובת לא תקינה';
             }
 
             if (!data.password) {
-                errors.password = 'Password is required.';
+                errors.password = '.שדה חובה';
             }
 
             return errors;
@@ -49,7 +50,7 @@ const Login = () => {
         if (formik.isValid) {
             loginFunc(formik.values);
         } else {
-            setEmailCorrect(false); // Set email correctness to false if form is not valid
+            setEmailCorrect(false);
         }
     };
 
@@ -66,9 +67,36 @@ const Login = () => {
 
     useEffect(() => {
         if (isError) {
-            navigate("/register");
+            showSwal()
         }
     }, [isError]);
+
+
+ const showSwal = () => {
+        Swal.fire({
+          reverseButtons: true,
+          title: "<strong>משתמש יקר</strong>",
+          icon: "error",
+          iconColor: '#1b5446',
+          html: `שם משתמש או סיסמא שגויים `,
+          showCloseButton: false,
+          showCancelButton: true,
+          focusConfirm: true,
+          cancelButtonColor: '#1b5446',
+          confirmButtonColor: '#1b5446',
+          confirmButtonAriaLabel: "Thumbs up, great!",
+          cancelButtonText: `<i class="fa fa-thumbs-down"></i>נסה שוב`,
+          confirmButtonText: `<i class="sweetButton"></i> להרשמה`,
+          cancelButtonAriaLabel: "Thumbs down"
+        }).then(res => {
+          if (res.isConfirmed) {
+            navigate("/register")
+          }else{
+            navigate("/login");
+          }
+        });
+    
+      }
 
     const AuthNavigation = () => {
         const { isAdmin, isUser } = useAuth();

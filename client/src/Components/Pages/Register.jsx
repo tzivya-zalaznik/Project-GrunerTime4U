@@ -14,7 +14,7 @@ const Register = () => {
     const [emailValid, setEmailValid] = useState(true);
     const navigate = useNavigate();
     const [registerFunc, { isError, isSuccess, data }] = useRegisterMutation();
-    
+
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -24,15 +24,15 @@ const Register = () => {
         validate: (data) => {
             let errors = {};
             if (!data.email) {
-                errors.email = 'Email is required.';
+                errors.email = '.שדה חובה';
             } else if (!validateEmail(data.email)) {
-                errors.email = 'Invalid email format.';
+                errors.email = '.כתובת לא תקינה';
             }
             if (!data.name) {
-                errors.name = 'Name is required.';
+                errors.name = '.שדה חובה';
             }
             if (!data.password) {
-                errors.password = 'Password is required.';
+                errors.password = '.שדה חובה';
             }
 
             return errors;
@@ -66,16 +66,17 @@ const Register = () => {
         if (isError) {
             Swal.fire({
                 icon: "error",
-                title: "Oops...",
-                text: "A user with this email already exists.",
+                iconColor: '#1b5446',
+                title: "...אופס",
+                text: "שם משתמש אינו תקין",
                 showConfirmButton: false
             });
         }
     }, [isError]);
 
     return (
-        <div style={{padding:'20px'}} className="card flex justify-content-center">
-            <Card style={{ width: '40%', margin:'auto', flexWrap: 'wrap', alignItems: 'flex-end',minWidth:'350px' }}>
+        <div style={{ padding: '20px' }} className="card flex justify-content-center">
+            <Card style={{ width: '40%', margin: 'auto', flexWrap: 'wrap', alignItems: 'flex-end', minWidth: '350px' }}>
                 <form onSubmit={handleFormSubmit} className="flex flex-column gap-2">
                     <br />
                     <h1>הרשמה</h1>
