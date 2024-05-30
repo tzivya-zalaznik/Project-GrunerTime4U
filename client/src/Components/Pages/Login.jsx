@@ -12,7 +12,7 @@ import useAuth from '../../Hooks/useAuth';
 import { Card } from 'primereact/card';
 
 const Login = () => {
-    const [emailCorrect, setEmailCorrect] = useState(true); // State to track email correctness
+    const [emailCorrect, setEmailCorrect] = useState(true);
 
     const formik = useFormik({
         initialValues: {

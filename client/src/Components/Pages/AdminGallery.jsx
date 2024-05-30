@@ -168,11 +168,6 @@ export default function AdminGallery() {
     const uploadOptions = { icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined' };
     const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined' };
 
-    // const formatCurrency = (value) => {
-    //     //return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    //     return 
-    // };
-
     const openNew = () => {
         if (!brands) {
             setVisible(true)
@@ -336,13 +331,6 @@ export default function AdminGallery() {
         setProduct(_product);
     };
 
-    // const onQuantityChange = () => {
-    //     let _product = { ...product };
-
-    //     _product['quantity'] = product.quantity - 1;
-    //     setProduct(_product);
-    // };
-
     const onInputChange = (e, name) => {
         const val = (e.target && e.target.value) || '';
         let _product = { ...product };
@@ -382,16 +370,7 @@ export default function AdminGallery() {
 
         setPurchase(_purchase);
     };
-
-    // const leftToolbarTemplate = () => {
-    //     return (
-    //         <div className="flex flex-wrap gap-2">
-    //             <Button label="New Watch" icon="pi pi-plus" severity="success" onClick={openNew} />
-    //             <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
-    //         </div>
-    //     );
-    // };
-
+    
     const rightToolbarTemplate = () => {
         return (
             <div className="flex flex-wrap gap-2">
@@ -474,7 +453,7 @@ export default function AdminGallery() {
         <div>
             <Toast ref={toast} />
             <div className="card">
-                <Toolbar className="mb-4" /*left={leftToolbarTemplate}*/ right={rightToolbarTemplate}></Toolbar>
+                <Toolbar className="mb-4" right={rightToolbarTemplate}></Toolbar>
                 <DataTable exportFilename={'Watches gallery ' + new Date().toLocaleDateString('en-GB')} tableStyle={{ direction: 'rtl' }} ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
                     dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
@@ -482,7 +461,7 @@ export default function AdminGallery() {
                     <Column field="companyBarcode" header="ברקוד חברה" sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="company.name" header="שם חברה" sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="barcode" header="ברקוד קופה" sortable style={{ minWidth: '8rem' }}></Column>
-                    <Column field="imageUrl" header="תמונה" body={imageBodyTemplate} exportField={imageUrlTemplate}></Column>
+                    <Column field="imageUrl" header="תמונה" body={imageBodyTemplate} exportField={imageUrlTemplate} style={{ width: '6rem' }}></Column>
                     <Column field="actualCost" header="מחיר מקורי" body={actualCostBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="price" header="מחיר" body={priceBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="disPrice" header="מחיר בהנחה" body={disPriceBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>

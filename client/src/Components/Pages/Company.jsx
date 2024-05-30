@@ -29,7 +29,6 @@ export default function Company() {
     const [UpdateCompany, { }] = useUpdateCompanyMutation()
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
-    // const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
     const [product, setProduct] = useState(emptyProduct);
     const [selectedProducts, setSelectedProducts] = useState(null);
     const [submitted, setSubmitted] = useState(false);
@@ -275,7 +274,7 @@ export default function Company() {
         <div>
             <Toast ref={toast} />
             <div className="card">
-                <Toolbar className="mb-4" /*left={leftToolbarTemplate}*/ right={rightToolbarTemplate}></Toolbar>
+                <Toolbar className="mb-4" right={rightToolbarTemplate}></Toolbar>
                 <DataTable exportFilename={'Companies '+new Date().toLocaleDateString('en-GB')} tableStyle={{ direction: 'rtl' }} ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
                     dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"

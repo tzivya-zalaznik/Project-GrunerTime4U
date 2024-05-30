@@ -60,7 +60,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background-image 2s ease-in-out; /* Smooth transition for background image */
+  transition: background-image 2s ease-in-out;
 }
 
 .content {

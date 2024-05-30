@@ -7,7 +7,7 @@ export default function NotFound() {
                 <div style={{ display: 'flex', justifyContent: 'center', direction: 'rtl' }}>
                     <i className="pi pi-search" style={{ fontSize: '1rem' }}></i>&nbsp;אופס! הדף שביקשת לא זמין...
                 </div>
-            </div>;
+            </div>
         </>
     );
 }

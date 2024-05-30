@@ -20,7 +20,6 @@ const galleryApiSlice = apiSlice.injectEndpoints({
             query: (id) => ({
                 url: "/api/purchase/"+id,
                 method: "DELETE",
-                // body: details
             }),
             invalidatesTags:["Sales"]
         })

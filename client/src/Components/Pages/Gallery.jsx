@@ -286,13 +286,13 @@ const Gallery = () => {
                 <b style={{ marginLeft: '60%' }}>קטגוריות</b><br /><br />
                 <div className="flex justify-content-center">
                   <label htmlFor="men" className="ml-2">גברים</label>&nbsp;&nbsp;
-                  <RadioButton inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
+                  <Checkbox inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
                 </div>
               </div>
               <br />
               <div className="flex justify-content-center">
                 <label htmlFor="women" className="ml-2">נשים</label>&nbsp;&nbsp;
-                <RadioButton inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
+                <Checkbox inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
               </div>
               <br /><br />
               <button className="p-element p-ripple p-button-text p-button p-component" style={{ color: '#1b5446' }} onClick={() => onSortChange()}>
@@ -350,12 +350,12 @@ const Gallery = () => {
             <br /><br />
             <b>קטגוריות</b><br /><br />
             <label htmlFor="men" className="ml-2">גברים</label>&nbsp;&nbsp;
-            <RadioButton inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
+            <Checkbox inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
           </div>
           <br />
           <div className="flex justify-content-center">
             <label htmlFor="women" className="ml-2">נשים</label>&nbsp;&nbsp;
-            <RadioButton inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
+            <Checkbox inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
           </div>
           <br /><br />
           <button style={{ color: '#1b5446' }} className="p-element p-ripple p-button-text p-button p-component" onClick={() => onSortChange()}>
