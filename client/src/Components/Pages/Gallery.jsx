@@ -189,8 +189,8 @@ const Gallery = () => {
                   </div>
                   <Dialog visible={showWatchDetails} style={{ width: '50rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
                     <div className='details' style={{ display: 'flex', justifyContent: 'space-around', direction: 'rtl', textAlign: 'right' }}>
-                      <div className="card flex justify-content-center">
-                        <Image src={watchDetails ? "http://localhost:3150/uploads/" + watchDetails[0]?.imageUrl.split("\\")[2] : ""} alt="Image" width="250" preview />
+                      <div className="flex justify-content-center">
+                        <Image src={watchDetails ? "http://localhost:3150/uploads/" + watchDetails[0]?.imageUrl.split("\\")[2] : ""} alt="Image" width="100%" preview />
                       </div>
                       <div style={{ float: 'left', width: '60%' }}>
                         <div style={{ textAlign: 'right' }}><h1>{watchDetails ? watchDetails[0]?.companyBarcode : null}</h1></div>

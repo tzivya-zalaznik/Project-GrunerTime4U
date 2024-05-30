@@ -74,8 +74,8 @@ const Register = () => {
     }, [isError]);
 
     return (
-        <div className="card flex justify-content-center">
-            <Card style={{ width: '40%', marginBottom: '20px', marginTop: '20px', marginLeft: '30%', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+        <div style={{padding:'20px'}} className="card flex justify-content-center">
+            <Card style={{ width: '40%', margin:'auto', flexWrap: 'wrap', alignItems: 'flex-end',minWidth:'350px' }}>
                 <form onSubmit={handleFormSubmit} className="flex flex-column gap-2">
                     <br />
                     <h1>הרשמה</h1>
