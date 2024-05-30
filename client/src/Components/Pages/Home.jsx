@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-// import './App.css';
 
 const images = [
   "a.jpg",
@@ -8,12 +7,6 @@ const images = [
   "c.jpg",
   "d.jpg",
   "e.jpg",
-//   "36.jpg",
-//   "41.jpg",
-//   "48.jpg",
-//   "49.jpg",
-//   "56.jpg",
-//   "57.jpg"
   ];
 
 const Home=()=>{
@@ -22,7 +15,7 @@ const Home=()=>{
     useEffect(() => {
       const interval = setInterval(() => {
         setIndex(prevIndex => (prevIndex + 1) % images.length);
-      }, 5000); // Change image every 5 seconds
+      }, 5000);
   
       return () => clearInterval(interval);
     }, []);

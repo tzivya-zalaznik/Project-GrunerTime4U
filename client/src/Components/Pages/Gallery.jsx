@@ -15,7 +15,8 @@ import Swal from 'sweetalert2'
 import { Toast } from 'primereact/toast';
 import { useGetCompaniesQuery } from '../../Slices/companiesApiSlice';
 import { ProgressSpinner } from 'primereact/progressspinner';
-
+import { Divider } from 'primereact/divider';
+import { RadioButton } from 'primereact/radiobutton';
 const Gallery = () => {
   const { data: gallery, isSuccess: success, isLoading, isError, error } = useGetGalleryQuery()
   const { data: companies, isSuccess: sss } = useGetCompaniesQuery()
@@ -259,17 +260,22 @@ const Gallery = () => {
   if (isError) return <h2>{error.data.message}</h2>
   return (
     <div style={{ minHeight: '410px', backgroundColor: 'white' }}>
+      <button className="responsiveFilters p-element p-ripple p-button-text p-button p-component" onClick={() => setVisibleRight(true)}>
+        <span className="p-button-label">
+          חיפוש מתקדם
+        </span>&nbsp;
+        <span className="p-button-icon p-button-icon-left pi pi-search" aria-hidden="true"></span>
+      </button>
       <Toast ref={toast} />
       <div className="card flex justify-content-center" style={{ display: 'flex', flexDirection: 'row', backgroundColor: '#ffff' }}>
-        <div className="card" style={{ width: '85%', display: 'flex', justifyContent: 'center' }}>
+        <div className="card products" style={{ display: 'flex', justifyContent: 'center' }}>
           <DataView sortField={sortField} sortOrder={sortOrder} value={showGallery} listTemplate={listTemplate} />
         </div>
-        <button style={{ backgroundColor: "#235447" }} icon="pi pi-plus" onClick={() => setVisibleRight(true)} />
-        <Sidebar visible={visibleRight} position="right" onHide={() => setVisibleRight(false)}>
-          <div>bla bla bla</div>
-          <div className="" style={{ width: '15%', height: '45vw' }}>
+        <Sidebar style={{width:'50vw'}} visible={visibleRight} position="right" onHide={() => setVisibleRight(false)}>
+          <div style={{display:'flex',justifyContent:'center'}}>
+          <div className="" style={{width: '15%', height: '45vw' }}>
             <br />
-            <div className="">
+            <div className="search">
               <div className="card">
                 <span className="p-input-icon-left" style={{ display: 'flex', alignItems: 'center' }}>
                   <i className="pi pi-search" />
@@ -277,16 +283,39 @@ const Gallery = () => {
                 </span>
               </div>
               <br /><br />
-              <Checkbox inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
-              <label htmlFor="men" className="ml-2">גברים</label>
+              <b>קטגוריות</b><br /><br />
+              <label htmlFor="men" className="ml-2">גברים</label>&nbsp;&nbsp;
+              <RadioButton inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
             </div>
             <br />
             <div className="flex justify-content-center">
-              <Checkbox inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
-              <label htmlFor="women" className="ml-2">נשים</label>
+              <label htmlFor="women" className="ml-2">נשים</label>&nbsp;&nbsp;
+              <RadioButton inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
             </div>
-
-            <div class="inline-block   font-bold text-center p-4 border-round" style={{ marginTop: '60px', marginRight: '10px' }}>
+            <br /><br />
+            <button className="p-element p-ripple p-button-text p-button p-component" style={{color: '#1b5446'}} onClick={() => onSortChange()}>
+              <span className="p-button-icon p-button-icon-left pi pi-sort-alt" aria-hidden="true"></span>
+              <span className="p-button-label">
+                מיון לפי מחיר
+              </span>
+              <span className="p-ink"></span>
+            </button>
+            <br /><br />
+            <br />
+            <div className=" flex justify-content-center" style={{ justifyContent: 'center' }}>
+              <div className="flex flex-row gap-0">
+                <Slider value={value} onChange={(e) => setValue(e.value)} className="w-8rem" range min={0} max={maxPrice} step={10} /><br />
+              </div></div>
+            <span style={{ marginTop: '10vw' }}>
+              ₪ {value[0]}
+            </span>
+            <span style={{ marginLeft: "6vw" }}>
+             ₪{value[1]}
+            </span>
+            <br /><br />
+            <br />
+            <div><b>מותגים</b></div>
+            <div class="inline-block text-center p-4 border-round">
               <div className=" flex justify-content-center">
                 <div className="flex flex-column gap-3">
                   {companies?.map((company) => {
@@ -301,36 +330,12 @@ const Gallery = () => {
                   })}
                 </div>
               </div>
-              <br /><br />
-
-              <div className=" flex justify-content-center" style={{ justifyContent: 'center' }}>
-                <div className="flex flex-row gap-0">
-                  <Slider value={value} onChange={(e) => setValue(e.value)} className="w-8rem" range min={0} max={maxPrice} step={10} /><br />
-                </div></div>
-              <span style={{ marginTop: '100vw' }}>
-                &nbsp; {value[0]}&nbsp;
-              </span>
-              <span style={{ marginLeft: "6vw" }}>
-                &nbsp;&nbsp;{value[1]}
-              </span>
-              <br /><br />
-              <br />
-              <button className="p-element p-ripple p-button-text p-button p-component" onClick={() => onSortChange()}>
-                <span className="p-button-icon p-button-icon-left pi pi-sort-alt" aria-hidden="true"></span>
-                <span className="p-button-label">
-                  מיון לפי מחיר
-                </span>
-                <span className="p-ink"></span>
-              </button>
-              <div className="slider-values">
-                <span></span>
-                <span></span>
-              </div>
             </div>
+          </div>
           </div>
         </Sidebar>
 
-
+        <div class="vertical-line"></div>
         <div className="search-container" style={{ width: '15%', height: '45vw' }}>
           <br />
           <div className="search">
@@ -341,16 +346,39 @@ const Gallery = () => {
               </span>
             </div>
             <br /><br />
-            <Checkbox inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
-            <label htmlFor="men" className="ml-2">גברים</label>
+            <b>קטגוריות</b><br /><br />
+            <label htmlFor="men" className="ml-2">גברים</label>&nbsp;&nbsp;
+            <RadioButton inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
           </div>
           <br />
           <div className="flex justify-content-center">
-            <Checkbox inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
-            <label htmlFor="women" className="ml-2">נשים</label>
+            <label htmlFor="women" className="ml-2">נשים</label>&nbsp;&nbsp;
+            <RadioButton inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
           </div>
-
-          <div class="inline-block   font-bold text-center p-4 border-round" style={{ marginTop: '60px', marginRight: '10px' }}>
+          <br /><br />
+          <button style={{color:'#1b5446'}} className="p-element p-ripple p-button-text p-button p-component" onClick={() => onSortChange()}>
+            <span className="p-button-icon p-button-icon-left pi pi-sort-alt" aria-hidden="true"></span>
+            <span className="p-button-label">
+              מיון לפי מחיר
+            </span>
+            <span className="p-ink"></span>
+          </button>
+          <br /><br />
+          <br />
+          <div className=" flex justify-content-center" style={{ justifyContent: 'center' }}>
+            <div className="flex flex-row gap-0">
+              <Slider value={value} onChange={(e) => setValue(e.value)} className="w-8rem" range min={0} max={maxPrice} step={10} /><br />
+            </div></div>
+          <span style={{ marginTop: '100vw' }}>
+            &nbsp;₪ {value[0]}&nbsp;
+          </span>
+          <span style={{ marginLeft: "6vw" }}>
+            &nbsp; ₪&nbsp;{value[1]}
+          </span>
+          <br /><br />
+          <br />
+          <div><b>מותגים</b></div>
+          <div class="inline-block text-center p-4 border-round">
             <div className=" flex justify-content-center">
               <div className="flex flex-column gap-3">
                 {companies?.map((company) => {
@@ -365,34 +393,10 @@ const Gallery = () => {
                 })}
               </div>
             </div>
-            <br /><br />
-
-            <div className=" flex justify-content-center" style={{ justifyContent: 'center' }}>
-              <div className="flex flex-row gap-0">
-                <Slider value={value} onChange={(e) => setValue(e.value)} className="w-8rem" range min={0} max={maxPrice} step={10} /><br />
-              </div></div>
-            <span style={{ marginTop: '100vw' }}>
-              &nbsp; {value[0]}&nbsp;
-            </span>
-            <span style={{ marginLeft: "6vw" }}>
-              &nbsp;&nbsp;{value[1]}
-            </span>
-            <br /><br />
-            <br />
-            <button className="p-element p-ripple p-button-text p-button p-component" onClick={() => onSortChange()}>
-              <span className="p-button-icon p-button-icon-left pi pi-sort-alt" aria-hidden="true"></span>
-              <span className="p-button-label">
-                מיון לפי מחיר
-              </span>
-              <span className="p-ink"></span>
-            </button>
-            <div className="slider-values">
-              <span></span>
-              <span></span>
-            </div>
           </div>
         </div>
-      </div></div>
+      </div>
+    </div>
   )
 }
 export default Gallery;

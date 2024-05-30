@@ -99,7 +99,7 @@ export default function NavBar() {
                             </li>
                         </ul>
                     </nav>
-                </div> : role == "User" ? <div style={{ backgroundColor: 'gray' }}>
+                </div> : role == "User" ? <div style={{ backgroundColor: 'gray'}}>
                     <nav className="navbar navbar-expand-sm bg-light" style={{ backgroundColor: 'gray' }} >
                         <ul className="navbar-nav mx-auto" >
                             <li className="nav-item">
