@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FilterMatchMode, FilterService } from 'primereact/api';
-import { DataTable, DataTableFilterMeta } from 'primereact/datatable';
-import { Column, ColumnFilterElementTemplateOptions } from 'primereact/column';
+import { FilterMatchMode } from 'primereact/api';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 import { useDeleteFromSalesMutation, useGetSalesQuery } from '../../Slices/salesApiSlice';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
@@ -42,11 +42,6 @@ export default function CustomFilterDemo() {
     const exportCSV = () => {
         dt.current.exportCSV();
     };
-
-    const rightToolbarTemplate = () => {
-
-    };
-
 
     const hideDeleteProductDialog = () => {
         setDeleteProductDialog(false);
@@ -101,6 +96,7 @@ export default function CustomFilterDemo() {
         setDeleteProductDialog(false);
         setWatch(0);
         toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+        toast.current.show({ severity: 'error', summary: 'שימו לב', detail: 'יש צורך לעדכן כמות במלאי השעונין', life: 3000 });
     }
 
 
