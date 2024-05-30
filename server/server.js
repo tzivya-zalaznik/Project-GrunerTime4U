@@ -15,12 +15,10 @@ const  ErrorHandler  = require("./middleware/errorHandler")
 
 connectDB()
 
-//middlewares
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.static("public"))
 
-//routes
 app.use("/api/auth", require("./routes/authRouter"))
 app.use("/api/user", require("./routes/userRouter"))
 app.use("/api/company", require("./routes/companyRouter"))
@@ -40,7 +38,6 @@ app.use('/uploads', express.static(__dirname + '/public/uploads'));
 
 app.use(ErrorHandler)
 
-//run
 mongoose.connection.once('open', () => {
     console.log('Connect to MongoDB')
     app.listen(PORT, () => {

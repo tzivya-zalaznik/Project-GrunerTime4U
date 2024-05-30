@@ -271,70 +271,72 @@ const Gallery = () => {
         <div className="card products" style={{ display: 'flex', justifyContent: 'center' }}>
           <DataView sortField={sortField} sortOrder={sortOrder} value={showGallery} listTemplate={listTemplate} />
         </div>
-        <Sidebar style={{width:'50vw'}} visible={visibleRight} position="right" onHide={() => setVisibleRight(false)}>
-          <div style={{display:'flex',justifyContent:'center'}}>
-          <div className="" style={{width: '15%', height: '45vw' }}>
-            <br />
-            <div className="search">
-              <div className="card">
-                <span className="p-input-icon-left" style={{ display: 'flex', alignItems: 'center' }}>
-                  <i className="pi pi-search" />
-                  <InputText onChange={(e) => barcodeFilter(e.target.value)} placeholder="Search" style={{ flex: 1, width: '50%' }} />
-                </span>
+        <Sidebar style={{ width: "70vw" }} visible={visibleRight} position="right" onHide={() => setVisibleRight(false)}>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="" style={{ height: '45vw' }}>
+              <br />
+              <div className="search">
+                <div className="">
+                  <span className="p-input-icon-left" style={{ display: 'flex', alignItems: 'center' }}>
+                    <i className="pi pi-search" />
+                    <InputText onChange={(e) => barcodeFilter(e.target.value)} placeholder="Search" style={{ flex: 1 }} />
+                  </span>
+                </div>
+                <br /><br />
+                <b style={{ marginLeft: '60%' }}>קטגוריות</b><br /><br />
+                <div className="flex justify-content-center">
+                  <label htmlFor="men" className="ml-2">גברים</label>&nbsp;&nbsp;
+                  <RadioButton inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
+                </div>
+              </div>
+              <br />
+              <div className="flex justify-content-center">
+                <label htmlFor="women" className="ml-2">נשים</label>&nbsp;&nbsp;
+                <RadioButton inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
               </div>
               <br /><br />
-              <b>קטגוריות</b><br /><br />
-              <label htmlFor="men" className="ml-2">גברים</label>&nbsp;&nbsp;
-              <RadioButton inputId='men' onChange={e => { setCheckedmen(!checkedMen); if (checkedWomen) setCheckedwomen(false); if (e.checked) setGender('גברים'); else setGender('') }} checked={checkedMen} />
-            </div>
-            <br />
-            <div className="flex justify-content-center">
-              <label htmlFor="women" className="ml-2">נשים</label>&nbsp;&nbsp;
-              <RadioButton inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
-            </div>
-            <br /><br />
-            <button className="p-element p-ripple p-button-text p-button p-component" style={{color: '#1b5446'}} onClick={() => onSortChange()}>
-              <span className="p-button-icon p-button-icon-left pi pi-sort-alt" aria-hidden="true"></span>
-              <span className="p-button-label">
-                מיון לפי מחיר
+              <button className="p-element p-ripple p-button-text p-button p-component" style={{ color: '#1b5446' }} onClick={() => onSortChange()}>
+                <span className="p-button-icon p-button-icon-left pi pi-sort-alt" aria-hidden="true"></span>
+                <span className="p-button-label">
+                  מיון לפי מחיר
+                </span>
+                <span className="p-ink"></span>
+              </button>
+              <br /><br />
+              <br />
+              <div className=" flex justify-content-center" style={{ justifyContent: 'center' }}>
+                <div className="flex flex-row gap-0">
+                  <Slider value={value} onChange={(e) => setValue(e.value)} className="w-8rem" range min={0} max={maxPrice} step={10} /><br />
+                </div>
+              </div>
+              <span style={{ marginRight: '40%' }}>
+                &nbsp; {"₪" + value[0]}
               </span>
-              <span className="p-ink"></span>
-            </button>
-            <br /><br />
-            <br />
-            <div className=" flex justify-content-center" style={{ justifyContent: 'center' }}>
-              <div className="flex flex-row gap-0">
-                <Slider value={value} onChange={(e) => setValue(e.value)} className="w-8rem" range min={0} max={maxPrice} step={10} /><br />
-              </div></div>
-            <span style={{ marginTop: '10vw' }}>
-              ₪ {value[0]}
-            </span>
-            <span style={{ marginLeft: "6vw" }}>
-             ₪{value[1]}
-            </span>
-            <br /><br />
-            <br />
-            <div><b>מותגים</b></div>
-            <div class="inline-block text-center p-4 border-round">
-              <div className=" flex justify-content-center">
-                <div className="flex flex-column gap-3">
-                  {companies?.map((company) => {
-                    return (
-                      <div className="flex align-items-center"  >
-                        <Checkbox name="company" value={company} onChange={onCategoryChange} checked={selectedCompanies.some((item) => item === company?.name)} />
-                        <label className="ml-2">
-                          {company.name}
-                        </label>
-                      </div>
-                    );
-                  })}
+              <span style={{ marginLeft: "6vw" }}>
+                &nbsp;{"₪" + value[1]}
+              </span>
+              <br /><br />
+              <br />
+              <div><b style={{ marginLeft: '60%' }}>מותגים</b></div>
+              <div class="inline-block text-center p-4 border-round">
+                <div className=" flex justify-content-center">
+                  <div className="flex flex-column gap-3" style={{ marginRight: '30%' }}>
+                    {companies?.map((company) => {
+                      return (
+                        <div className="flex align-items-center"  >
+                          <Checkbox name="company" value={company} onChange={onCategoryChange} checked={selectedCompanies.some((item) => item === company?.name)} />
+                          <label className="ml-2">
+                            {company.name}
+                          </label>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          </div>
         </Sidebar>
-
         <div class="vertical-line"></div>
         <div className="search-container" style={{ width: '15%', height: '45vw' }}>
           <br />
@@ -356,7 +358,7 @@ const Gallery = () => {
             <RadioButton inputId='women' onChange={e => { setCheckedwomen(!checkedWomen); if (checkedMen) setCheckedmen(false); if (e.checked) setGender('נשים'); else setGender('') }} checked={checkedWomen} />
           </div>
           <br /><br />
-          <button style={{color:'#1b5446'}} className="p-element p-ripple p-button-text p-button p-component" onClick={() => onSortChange()}>
+          <button style={{ color: '#1b5446' }} className="p-element p-ripple p-button-text p-button p-component" onClick={() => onSortChange()}>
             <span className="p-button-icon p-button-icon-left pi pi-sort-alt" aria-hidden="true"></span>
             <span className="p-button-label">
               מיון לפי מחיר

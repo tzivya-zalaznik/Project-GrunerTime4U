@@ -1,6 +1,5 @@
 
 const User = require("../models/User")
-const { getWatchByID } = require("./watchController")
 const Watch = require("../models/Watch")
 
 const updateUser = async (req, res) => {

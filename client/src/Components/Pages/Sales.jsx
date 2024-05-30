@@ -12,7 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Sidebar } from 'primereact/sidebar';
 
 export default function CustomFilterDemo() {
-    const { data: sales, isLoading, isError, error, isSuccess  } = useGetSalesQuery()
+    const { data: sales, isLoading, isError, error, isSuccess } = useGetSalesQuery()
     const [visibleRight, setVisibleRight] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [watch, setWatch] = useState(0);
@@ -44,7 +44,7 @@ export default function CustomFilterDemo() {
     };
 
     const rightToolbarTemplate = () => {
-       
+
     };
 
 
@@ -76,13 +76,13 @@ export default function CustomFilterDemo() {
             </div>
         )
     }
-    
+
     const dateTemplate = (rowData) => {
         const date = new Date(rowData.date);
         const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
         return formattedDate;
     };
-    
+
     const [lockedCustomers, setLockedCustomers] = useState([]);
 
     const lockTemplate = (rowData, options) => {
@@ -94,7 +94,7 @@ export default function CustomFilterDemo() {
         return rowData.watch.companyBarcode
     };
 
-    const [Delete, { data}] = useDeleteFromSalesMutation()
+    const [Delete, { data }] = useDeleteFromSalesMutation()
 
     const HandleDeleteClick = (watchId) => {
         Delete(watch)
@@ -115,8 +115,8 @@ export default function CustomFilterDemo() {
         setVisible(false);
         let sortSale = sales?.filter((s) => (new Date(s.date) >= (startDate) && endDate >= (new Date(s.date))))
         setSalesToShow(sortSale)
-        calculateIncomming(sortSale)  
-        calculateOutcomming(sales) 
+        calculateIncomming(sortSale)
+        calculateOutcomming(sales)
     }
     const HandleDateUnSortingClick = () => {
         setSalesToShow(sales)
@@ -163,10 +163,10 @@ export default function CustomFilterDemo() {
         <>
             <Toast ref={toast} />
             <div className="card">
-                <br/>
-            <Button style={{ marginLeft: "90%", backgroundColor: "#235447" }} label="אפשרויות נוספות" icon="pi pi-plus" onClick={() => setVisibleRight(true)} />
-            <Toolbar className="mb-4" ></Toolbar>
-                <DataTable ref={dt} tableStyle={{ direction: 'rtl' }} exportFilename={'Watches report '+new Date().toLocaleDateString('en-GB')} value={salesToShow} filters={filters} paginator rows={10} dataKey="id" filterDisplay="row" emptyMessage="No purchase found.">
+                <br />
+                <Button style={{ width: '150px', margin: 'auto', marginRight: '10px', backgroundColor: "#235447" }} label="אפשרויות נוספות" icon="pi pi-plus" onClick={() => setVisibleRight(true)} />
+                <Toolbar className="mb-4" ></Toolbar>
+                <DataTable ref={dt} tableStyle={{ direction: 'rtl' }} exportFilename={'Watches report ' + new Date().toLocaleDateString('en-GB')} value={salesToShow} filters={filters} paginator rows={10} dataKey="id" filterDisplay="row" emptyMessage="No purchase found.">
                     <Column field="watch" header="שעון" filterField="watch.companyBarcode" exportField={exportWatch} style={{ minWidth: '12rem' }} body={watchBodyTemplate} filter filterPlaceholder="Search by companyBarcode" />
                     <Column field="name" header="שם" filter filterPlaceholder="Search by name" style={{ minWidth: '12rem' }} />
                     <Column field="phone" header="טלפון" filter filterPlaceholder="Search by phone" style={{ minWidth: '12rem' }} />
@@ -177,32 +177,32 @@ export default function CustomFilterDemo() {
                 </DataTable>
             </div>
             <Dialog visible={deleteProductDialog} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
-                 <div className="confirmation-content" style={{ direction: 'rtl' }}>
+                <div className="confirmation-content" style={{ direction: 'rtl' }}>
                     <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
                     <br /><br />
-                        <span>
-                            אתה בטוח שברצונך למחוק מוצר זה?
-                        </span>
+                    <span>
+                        אתה בטוח שברצונך למחוק מוצר זה?
+                    </span>
                 </div>
             </Dialog>
 
-            <Sidebar style={{ display: "flex" }} visible={visibleRight} position="right" onHide={() => setVisibleRight(false)}><br/>
-            <Button label="הורדה" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} style={{ backgroundColor: "#235447" }}/><br/><br/>
-            <h2>סינון לפי טווח תאריכים</h2><br />
+            <Sidebar style={{ display: "flex" }} visible={visibleRight} position="right" onHide={() => setVisibleRight(false)}><br />
+                <Button label="הורדה" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} style={{ backgroundColor: "#235447" }} /><br /><br />
+                <h2>סינון לפי טווח תאריכים</h2><br />
                 <h4>מתאריך</h4>
                 <DatePicker style={{ backgroundColor: "indigo" }} selected={startDate} dateFormat={"dd/MM/YYYY"} onChange={(date) => { setStartDate(date) }} />
                 <h4>עד תאריך</h4>
                 <DatePicker style={{ width: "50%", display: "flex" }} selected={endDate} dateFormat={"dd/MM/YYYY"} onChange={(date) => { setEndDate(date) }} />  <br />  <br /><br /><br />
-                <div style={{display:"flex"}}>
-                    <Button label="  בטל סינון " style={{  margin:"auto",backgroundColor: "#235447" }} onClick={HandleDateUnSortingClick} />
-                    <Button label="סנן" style={{margin:"auto" , backgroundColor: "#235447" }} onClick={HandleDateSortingInDialogClick} />
+                <div style={{ display: "flex" }}>
+                    <Button label="  בטל סינון " style={{ margin: "auto", backgroundColor: "#235447" }} onClick={HandleDateUnSortingClick} />
+                    <Button label="סנן" style={{ margin: "auto", backgroundColor: "#235447" }} onClick={HandleDateSortingInDialogClick} />
                 </div><br />
                 <span>
                     <h3>:סך ההכנסות</h3>
-                    {incomesSum?incomesSum:0}₪ 
+                    {incomesSum ? incomesSum : 0}₪
 
                     <h3>:סך הרווחים</h3>
-                    {incomesSum>0?(incomesSum-outcomesSum):0}₪ 
+                    {incomesSum > 0 ? (incomesSum - outcomesSum) : 0}₪
                 </span>
             </Sidebar>
         </>

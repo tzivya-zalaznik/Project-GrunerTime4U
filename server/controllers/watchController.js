@@ -3,12 +3,10 @@ const Watch = require("../models/Watch")
 
 const createWatch = async (req, res) => {
     const { company, companyBarcode, actualCost, price, disPrice, otherColors, size, description, barcode, quantity, category } = req.body
-    console.log(otherColors);
     const imageUrl = req.file.path;
-    otherColors = otherColors.split(",");
     if (!company || !imageUrl || !companyBarcode || !actualCost || !price || !size || !description || !barcode || !quantity || !category)
         return res.status(400).json({ message: 'missing required feilds' })
-    const watch = await Watch.create({ company, imageUrl, companyBarcode, actualCost, price, disPrice, otherColors, size, description, barcode, quantity, category })
+    const watch = await Watch.create({ company, imageUrl, companyBarcode, actualCost, price, disPrice, otherColors:otherColors.split(","), size, description, barcode, quantity, category })
     if (watch)
         return res.status(201).json({ message: 'New watch created' })
     else

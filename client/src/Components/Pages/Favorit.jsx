@@ -1,27 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
 import { DataView } from 'primereact/dataview';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
-import { useAddToFavoriteMutation, useGetFavoriteQuery, useGetGalleryQuery } from '../../Slices/galleryApiSlice';
+import { useAddToFavoriteMutation, useGetFavoriteQuery } from '../../Slices/galleryApiSlice';
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../Slices/authSlice';
-import { useNavigate } from 'react-router-dom';
-import { Divider } from 'primereact/divider';
 import { Dialog } from 'primereact/dialog';
 import { Image } from 'primereact/image';
 
 const Favorite = () => {
-    const navigate = useNavigate()
-    var favorite = JSON.parse(localStorage.getItem("user")).watches;
     const { data: full_favourites, isLoading, isError, error } = useGetFavoriteQuery()
     const [Delete, { data, isSuccess }] = useAddToFavoriteMutation()
     const [showWatchDetails, setShowWatchDetails] = useState(false);
     const [watchDetails, setWatchDetails] = useState({});
     const dispatch = useDispatch()
     const HandleHeartClick = (watchId) => {
-        Delete({ user: localStorage.getItem("user"), watches: full_favourites.filter(w => w._id != watchId) })
+        Delete({ user: localStorage.getItem("user"), watches: full_favourites.filter(w => w?._id != watchId) })
     }
     useEffect(() => {
         if (isSuccess) {
@@ -31,7 +23,7 @@ const Favorite = () => {
 
     const HandleWatchDetails = (id) => {
         setShowWatchDetails(true)
-        const watch = full_favourites.filter(w => w._id == id)
+        const watch = full_favourites.filter(w => w?._id == id)
         setWatchDetails(watch)
         setShowWatchDetails(true)
 
@@ -92,8 +84,8 @@ const Favorite = () => {
                                         </button>
                                         <Dialog visible={showWatchDetails} style={{ width: '50rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
                                             <div className='details' style={{ display: 'flex', justifyContent: 'space-around', direction: 'rtl', textAlign: 'right' }}>
-                                                <div className="card flex justify-content-center">
-                                                    <Image src={watchDetails ? "http://localhost:3150/uploads/" + watchDetails[0]?.imageUrl.split("\\")[2] : ""} alt="Image" width="250" preview />
+                                                <div className="flex justify-content-center">
+                                                    <Image src={watchDetails ? "http://localhost:3150/uploads/" + watchDetails[0]?.imageUrl.split("\\")[2] : ""} alt="Image" width="100%" preview />
                                                 </div>
 
                                                 <div style={{ float: 'left', width: '60%' }}>
