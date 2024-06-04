@@ -24,7 +24,7 @@ const ForgotPassword = () => {
     useEffect(() => {
         if (isSuccess) {
             console.log("updateeeeeeeeeeeeeeee");
-            navigate('login')
+            navigate('/login')
         }
     }, [isSuccess]);
 
