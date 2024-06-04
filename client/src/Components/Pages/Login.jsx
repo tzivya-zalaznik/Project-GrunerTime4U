@@ -72,31 +72,31 @@ const Login = () => {
     }, [isError]);
 
 
- const showSwal = () => {
+    const showSwal = () => {
         Swal.fire({
-          reverseButtons: true,
-          title: "<strong>משתמש יקר</strong>",
-          icon: "error",
-          iconColor: '#1b5446',
-          html: `שם משתמש או סיסמא שגויים `,
-          showCloseButton: false,
-          showCancelButton: true,
-          focusConfirm: true,
-          cancelButtonColor: '#1b5446',
-          confirmButtonColor: '#1b5446',
-          confirmButtonAriaLabel: "Thumbs up, great!",
-          cancelButtonText: `<i class="fa fa-thumbs-down"></i>נסה שוב`,
-          confirmButtonText: `<i class="sweetButton"></i> להרשמה`,
-          cancelButtonAriaLabel: "Thumbs down"
+            reverseButtons: true,
+            title: "<strong>משתמש יקר</strong>",
+            icon: "error",
+            iconColor: '#1b5446',
+            html: `שם משתמש או סיסמא שגויים `,
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: true,
+            cancelButtonColor: '#1b5446',
+            confirmButtonColor: '#1b5446',
+            confirmButtonAriaLabel: "Thumbs up, great!",
+            cancelButtonText: `<i class="fa fa-thumbs-down"></i>נסה שוב`,
+            confirmButtonText: `<i class="sweetButton"></i> להרשמה`,
+            cancelButtonAriaLabel: "Thumbs down"
         }).then(res => {
-          if (res.isConfirmed) {
-            navigate("/register")
-          }else{
-            navigate("/login");
-          }
+            if (res.isConfirmed) {
+                navigate("/register")
+            } else {
+                navigate("/login");
+            }
         });
-    
-      }
+
+    }
 
     const AuthNavigation = () => {
         const { isAdmin, isUser } = useAuth();
@@ -104,8 +104,8 @@ const Login = () => {
     };
 
     return (
-        <div className="card flex justify-content-center" style={{ width: '100%',padding:'20px' }}>
-            <Card style={{ width: '40%', margin:'auto',minWidth:'350px',flexWrap: 'wrap', alignItems: 'flex-end' }}>
+        <div className="card flex justify-content-center" style={{ width: '100%', padding: '20px' }}>
+            <Card style={{ width: '40%', margin: 'auto', minWidth: '350px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
                 <form onSubmit={handleFormSubmit} className="flex flex-column gap-2">
                     <br />
                     <h1>כניסה</h1>
@@ -150,6 +150,10 @@ const Login = () => {
                     <br />
                     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
                         <Button type="submit" label="כניסה" style={{ width: '245px', backgroundColor: '#407467', hover: { backgroundColor: 'white' }, borderRadius: '5px' }} rounded />
+                    </div>
+                    <div class="links" style={{ width: '245px', display: 'flex', justifyContent: 'space-between',margin:'auto' }}>
+                        <a href="/forgotPassword" style={{direction:'rtl',textDecoration:'none'}}>שכחתי סיסמא?</a>
+                        <a href="/register" style={{textDecoration:'none'}}>הרשמה</a>
                     </div>
                 </form>
             </Card>

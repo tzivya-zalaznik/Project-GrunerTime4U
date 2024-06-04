@@ -1,5 +1,6 @@
 
 const User = require("../models/User")
+const bcrypt = require('bcrypt')
 const Watch = require("../models/Watch")
 
 const updateUser = async (req, res) => {
@@ -24,4 +25,19 @@ const getFavoriteWatches = async (req, res) => {
     res.json(userWithWatches)
 }
 
-module.exports = { updateUser, getFavoriteWatches }
+const updatePassword = async (req, res) => {
+    const { email, password } = req.body
+    if (!email || !password) {
+        return res.status(400).json({ message: 'All fields are required' })
+    }
+    const foundUser = await User.findOne({ email }).exec()
+    if (!foundUser) {
+        return res.status(401).json({ message: 'Unauthorized' })
+    }
+    const hashedPwd = await bcrypt.hash(password, 10)
+    foundUser.password = hashedPwd
+    await foundUser.save()
+    return res.status(201).json({ message: `Update ${foundUser.name} password` })
+}
+
+module.exports = { updateUser, getFavoriteWatches, updatePassword }

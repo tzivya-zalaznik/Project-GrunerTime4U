@@ -54,11 +54,11 @@ export default function Footer() {
       </section>
       
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-        © 2024 גרונר. בית לשעוני מותג 
+        {/* © 2024 גרונר. בית לשעוני מותג 
         <a className='text-reset fw-bold' href='/'>
         &nbsp;GrunerTime4U.com 
-        </a>
-        {/* <img src='download.png'></img> */}
+        </a> */}
+        <img style={{width:'100%'}} src='download.png'></img>
       </div>
     </footer>
   );

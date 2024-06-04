@@ -24,6 +24,7 @@ app.use("/api/user", require("./routes/userRouter"))
 app.use("/api/company", require("./routes/companyRouter"))
 app.use("/api/watch", require("./routes/watchRouter"))
 app.use("/api/purchase", require("./routes/purchaseRouter"))
+app.use("/api/mail", require('./routes/mailRouter'))
 
 app.get("/", (req, res) => {
     res.send("this is the home page")

@@ -16,6 +16,7 @@ import AdminGallery from './Components/Pages/AdminGallery';
 import Company from './Components/Pages/Company';
 import Footer from './Components/Footer';
 import NotFound from './Components/Pages/NotFound';
+import ForgotPassword from './Components/Pages/ForgotPassword';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route element={<RequireAuth allowRoles={["Admin", "User"]} />}>
           <Route path="/favorite" element={<Favorite />} />
           <Route element={<RequireAuth allowRoles={["Admin"]} />}>
