@@ -58,7 +58,7 @@ export default function Footer() {
         <a className='text-reset fw-bold' href='/'>
         &nbsp;GrunerTime4U.com 
         </a> */}
-        <img style={{width:'100%'}} src='download.png'></img>
+        <img className='footer' src='download.png'></img>
       </div>
     </footer>
   );

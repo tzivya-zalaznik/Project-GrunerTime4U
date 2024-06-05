@@ -16,7 +16,7 @@ import { Toast } from 'primereact/toast';
 import { useGetCompaniesQuery } from '../../Slices/companiesApiSlice';
 
 const Gallery = () => {
-  const watches = JSON.parse(localStorage.getItem("user"))?.watches
+  let watches = JSON.parse(localStorage.getItem("user"))?.watches
   const { data: gallery, isSuccess: success, isLoading, isError, error } = useGetGalleryQuery()
   const { data: companies, isSuccess: sss } = useGetCompaniesQuery()
   const [AddToFavorite, { data, isSuccess }] = useAddToFavoriteMutation()
@@ -254,7 +254,7 @@ const Gallery = () => {
     </div>
   )
 
-  if (isError) return <h2>{error.data.message}</h2>
+  if (isError) return <div style={{height:'410px',display: 'flex',flexDirection: 'column',justifyContent: 'center',backgroundColor:'#ffff'}}><div style={{ display: 'flex', justifyContent: 'center',direction:'rtl' }}><i className="pi pi-search" style={{ fontSize: '1rem' }}></i>&nbsp; לא נמצאו שעונים...</div></div>;
   return (
     <div style={{ minHeight: '410px', backgroundColor: 'white' }}>
       <button className="responsiveFilters p-element p-ripple p-button-text p-button p-component" onClick={() => setVisibleRight(true)}>

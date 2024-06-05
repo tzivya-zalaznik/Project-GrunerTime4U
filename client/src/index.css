@@ -367,6 +367,9 @@ font-size: 32px;
 }
 
 @media (max-width: 768px) {
+  .footer{
+    width: 100%;
+  }
   .search-container {
     display: none;
   }
