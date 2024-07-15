@@ -48,7 +48,7 @@ const Favorite = () => {
                             <div className="col-12 md:col-6 xl:col-3 p-3">
                                 <div className="surface-card shadow-2 border-round p-4 ccc">
                                     <div className="flex flex-column align-items-center border-bottom-1 surface-border pb-3">
-                                        <img style={{ height: '50px', width: 'auto', marginBottom: '5px', opacity: `${product.quantity == 0 ? '30%' : '100%'}` }} src={"http://localhost:3150/uploads/" + product.company.imageUrl.split("\\")[2]} alt="Image" preview width="250" />
+                                        <img style={{ height: '50px', marginBottom: '5px', opacity: `${product.quantity == 0 ? '30%' : '100%'}` }} src={"http://localhost:3150/uploads/" + product.company.imageUrl.split("\\")[2]} alt="Image" preview width="250" />
                                         <div class="container">
                                             <img className={product.quantity == 0 ? "watchImageOutOfStock " : "watchImage"} src={"http://localhost:3150/uploads/" + product.imageUrl.split("\\")[2]} alt="Image" preview width="250" />
                                             {product.price != product.disPrice ? <span class="onsale sold-out" style={{ opacity: `${product.quantity == 0 ? '30%' : '100%'}` }}>מבצע!</span> : null}
